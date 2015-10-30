@@ -1,0 +1,55 @@
+Agenda:-
+
+	public abstract class CalendarEvent(); 	//probably will need this
+			//possibly an interface instead of inheritance
+	-> instances = time, title, location, etc.
+	
+	Think of future addons, maybe we'll want a filter for events?
+				maybe we'll want to add personal events?
+
+Schedule:-
+	
+	public class ClassTime extends CalendarEvent(); // implements?
+	add only ClassTime events to schedule
+	
+	list view and weekly view, maybe add monthly view in the future
+		
+Class Search:-
+
+	everything will use our Course() class
+	Course() can have an instance of ClassTime() ^^
+	//Course extends CalendarEvent??
+	
+	make room for a filter!!
+	
+	have a way to view schedule, possibly a view of what the viewed 
+	class will look like in your schedule before adding
+
+MyPlanner:-
+	
+	Major + Minor requirements 
+	links to "browse classes"  (Class Search)
+	
+	start with just a regular list of classes possibly with links to 
+	download degree planner pdfs, if we have time, implement the 
+	degree planner within the app or add later.
+
+
+myCart:-
+	
+	Command Pattern
+	undo an added course
+	execute an enrollment
+
+	Course objects displayed
+
+
+
+---------------------------------------------------------------
+
+Comments:
+
+
+Course are viewed in the same way on multiple screens
+(i.e. myCart, mySchedule List view, Class Search) maybe we could make an
+object for it?

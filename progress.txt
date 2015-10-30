@@ -1,0 +1,25 @@
+myAgenda + login
+Menu
+Class Search + DB
+myPlanner + DB
+
+----------------------------------------------------------
+
+Menu
+Class Search + mySchedule
+myPlanner + DB
+myCart
+
+---------------------------------------------------------
+
+myCart
+mySchedule
++func
++func
+
+---------------------------------------------------------
+
++func
+debug
++func
+debug
