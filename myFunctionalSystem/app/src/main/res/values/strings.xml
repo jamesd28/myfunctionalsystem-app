@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_my_class_search">myClassSearch</string>
     <string name="title_activity_my_class_search_courses">MyClassSearchCoursesActivity</string>
+    <string name="title_activity_my_planner">myPlanner</string>
+    <string name="title_activity_my_cart">myCart</string>
+    <string name="title_activity_my_schedule">mySchedule</string>
 </resources>
