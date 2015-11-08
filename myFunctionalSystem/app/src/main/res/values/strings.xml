@@ -5,4 +5,5 @@
     <string name="title_activity_my_class_search_courses">MyClassSearchCoursesActivity</string>
     <string name="title_activity_search_by_faculties">search_by_faculties</string>
     <string name="title_activity_search_courses">searchCourses</string>
+    <string name="title_activity_course_description">courseDescription</string>
 </resources>

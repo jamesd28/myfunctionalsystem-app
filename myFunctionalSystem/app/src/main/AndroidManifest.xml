@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".myClassSearch"
-            android:label="@string/title_activity_my_class_search"
+            android:label="Select a Term"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
@@ -30,12 +30,17 @@
         </activity>
         <activity
             android:name=".searchDepartments"
-            android:label="@string/title_activity_search_by_faculties"
+            android:label="Select a Department"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".searchCourses"
-            android:label="@string/title_activity_search_courses"
+            android:label="Select a Course"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".courseDescription"
+            android:label="@string/title_activity_course_description"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

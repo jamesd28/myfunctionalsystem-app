@@ -1,3 +1,12 @@
+(1) Login Screen (Contact info at bottom)
+(2) MyCart
+(3) MyPlanner (JOHN WORKING ON)
+(4) Menu Bar
+(5) Course Page (CODY WORKING ON)
+(6) MySchedule
+
+----------------------------------------------------------
+
 myAgenda + login
 Menu
 Class Search + DB
