@@ -28,6 +28,16 @@
             android:label="MyAgenda"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".searchDepartments"
+            android:label="@string/title_activity_search_by_faculties"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".searchCourses"
+            android:label="@string/title_activity_search_courses"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
