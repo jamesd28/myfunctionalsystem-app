@@ -95,7 +95,7 @@ public class myClassSearch extends AppCompatActivity {
     }
 
     private void populateTerms() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list, termNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursesearchview, termNames);
 
         ListView list = (ListView) findViewById(R.id.myClassSearchView);
         list.setAdapter(adapter);

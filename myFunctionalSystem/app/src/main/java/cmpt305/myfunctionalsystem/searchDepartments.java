@@ -2,8 +2,6 @@ package cmpt305.myfunctionalsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -43,7 +41,7 @@ public class searchDepartments extends AppCompatActivity {
     }
 
     private void populateDepartments() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list, departmentNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursesearchview, departmentNames);
 
         ListView list = (ListView) findViewById(R.id.listDepartments);
         list.setAdapter(adapter);

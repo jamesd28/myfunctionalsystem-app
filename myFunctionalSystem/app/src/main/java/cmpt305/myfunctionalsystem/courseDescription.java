@@ -6,34 +6,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
 
-public class searchCourses extends AppCompatActivity {
+public class courseDescription extends AppCompatActivity {
 
-    private String[] courseNames = {"ACCT 111\nFinancial Accounting I",
-                                    "ACCT 161\nFinancial Accounting II",
-                                    "ACCT 164\nPractical Tax Applications",
-                                    "ACCT 211\nFinancial Accounting III",
-                                    "ACCT 214\nIntegrated Accounting Systems",
-                                    "ACCT 215\nQuantitative Decision Support",
-                                    "ACCT 218\nManagement Accounting I",
-                                    "ACCT 261\nFinancial Accounting IV",
-                                    "ACCT 268\nManagement Accounting II",
-                                    "ACCT 275\nAccounting Information Systems"};
+    private String[] courseInfo = {"Description\nTEXT",
+                                   "Section\nTEXT",
+                                   "Instructor\nTEXT",
+                                   "Times\nTEXT"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_courses);
+        setContentView(R.layout.activity_course_description);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        populateCourses();
-        registerClickCallBack();
+        populateDescription();
     }
+
 
     @Override
     protected void onRestart(){
@@ -87,31 +79,16 @@ public class searchCourses extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void registerClickCallBack() {
-        ListView list = (ListView) findViewById(R.id.listCourses);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                launchCourseDescription();
-            }
-        });
-    }
 
-    private void populateCourses() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursesearchview, courseNames);
+    private void populateDescription() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursedescriptionview, courseInfo);
 
-        ListView list = (ListView) findViewById(R.id.listCourses);
-        list.setAdapter(adapter);
-    }
-
-    public void launchCourseDescription() {
-        Intent intent = new Intent(this, courseDescription.class);
-        startActivity(intent);
+        GridView grid = (GridView) findViewById(R.id.courseGrid);
+        grid.setAdapter(adapter);
     }
 
     public void launchActivity() {
         Intent intent = new Intent(this, myClassSearch.class);
         startActivity(intent);
     }
-
 }

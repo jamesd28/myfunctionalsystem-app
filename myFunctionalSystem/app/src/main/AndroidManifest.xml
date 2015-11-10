@@ -40,7 +40,7 @@
         </activity>
         <activity
             android:name=".courseDescription"
-            android:label="@string/title_activity_course_description"
+            android:label="Course Information"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
