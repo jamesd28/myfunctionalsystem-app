@@ -25,3 +25,14 @@ proguard/
 
 # Log Files
 *.log
+
+# OS SPECIFIC
+.DS_Store
+.DS_Store?
+.Trash
+.Trashes
+._*
+.Spotlight
+ehthumbs.db
+Thumbs.db
+

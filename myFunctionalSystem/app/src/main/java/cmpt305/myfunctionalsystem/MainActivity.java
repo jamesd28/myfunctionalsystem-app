@@ -2,16 +2,17 @@ package cmpt305.myfunctionalsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
+//import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MyMenu {
 
+    //public static Intent intent;
     private final String TAG = "myFunctional System";
     private final String uname = "user";
     private final String password = "password";
@@ -29,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate() called");
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -55,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
-    public void launchActivity(Class<?> className) {
+/*    public void launchActivity(Class<?> className) {
         Intent intent = new Intent(this, className);
         startActivity(intent);
-    }
+    }*/
 
     public void launchlogin(View view){
         usernameEditText = (EditText) findViewById(R.id.unameText);
