@@ -1,16 +1,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".Main">
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".Main"
+    android:background="#000000">
     <item
         android:id="@+id/action_my_class_search"
-        android:title="MyClassSearch"
-        android:orderInCategory="1"
+        android:title="myClassSearch"
+        android:orderInCategory="200"
         app:showAsAction="never"
         />
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="2"
+        android:id="@+id/action_my_agenda"
+        android:title="myAgenda"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_my_planner"
+        android:title="myPlanner"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_my_cart"
+        android:title="myCart"
+        android:orderInCategory="400"
         app:showAsAction="never"
         />
 </menu>

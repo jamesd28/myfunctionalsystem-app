@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class MyAgenda extends AppCompatActivity {
 
-    private String[] calendarTimes = {"", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00",
+    private String[] calendarTimes = {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00",
                                         "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30",
                                         "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00",
                                         "6:30", "7:00", "7:30", "8:00", "8:30", "9:00"};
@@ -50,11 +50,15 @@ public class MyAgenda extends AppCompatActivity {
             case R.id.action_my_class_search:
                 launchActivity(myClassSearch.class);
                 break;
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.action_my_agenda:
+                launchActivity(MyAgenda.class);
+                break;
+            case R.id.action_my_planner:
+                launchActivity(MyPlanner.class);
+                break;
+            case R.id.action_my_cart:
+                launchActivity(MyCart.class);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -79,6 +83,9 @@ public class MyAgenda extends AppCompatActivity {
 
     private void populateListView() {
 
+        for (int i = 0; i < calendarTimes.length; i++){
+            calendarTimes[i] = "\n" + calendarTimes[i] + "\n";
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.calendar_event, calendarTimes);
 
         ListView list = (ListView) findViewById(R.id.listView);

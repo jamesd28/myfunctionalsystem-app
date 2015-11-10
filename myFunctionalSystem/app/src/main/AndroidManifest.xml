@@ -40,7 +40,21 @@
         </activity>
         <activity
             android:name=".courseDescription"
-            android:label="Course Information"
+            android:label="Course Information" >
+    	</activity>
+	    <activity
+            android:name=".MyPlanner"
+            android:label="@string/title_activity_my_planner"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".MyCart"
+            android:label="@string/title_activity_my_cart"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".MySchedule"
+            android:label="@string/title_activity_my_schedule"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

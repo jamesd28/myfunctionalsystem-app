@@ -47,11 +47,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_my_class_search:
                 launchActivity(myClassSearch.class);
                 break;
-        }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
         }
 
         return super.onOptionsItemSelected(item);

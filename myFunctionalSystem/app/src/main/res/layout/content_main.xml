@@ -9,7 +9,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main"
-    android:background="#7b0909"
+    android:background="@color/backgroundColor"
     android:id="@+id/loginScreen">
 
 
@@ -22,7 +22,8 @@
         android:width="200dp"
         android:background="#FFFFFF"
         android:clickable="true"
-        android:textAlignment="center">
+        android:textAlignment="center"
+        android:inputType="textEmailAddress">
         <requestFocus/>
     </EditText>
 

@@ -47,12 +47,18 @@ public class myClassSearch extends AppCompatActivity {
 
         switch (id) {
             case R.id.action_my_class_search:
-                launchActivity();
+                launchActivity(myClassSearch.class);
+                break;
+            case R.id.action_my_planner:
+                launchActivity(MyPlanner.class);
+                break;
+            case R.id.action_my_agenda:
+                launchActivity(MyAgenda.class);
+                break;
+            case R.id.action_my_cart:
+                launchActivity(MyCart.class);
                 break;
         }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) { return true; }
 
         return super.onOptionsItemSelected(item);
     }
@@ -106,8 +112,8 @@ public class myClassSearch extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launchActivity() {
-        Intent intent = new Intent(this, myClassSearch.class);
+    public void launchActivity(Class<?> className) {
+        Intent intent = new Intent(this, className);
         startActivity(intent);
     }
 
