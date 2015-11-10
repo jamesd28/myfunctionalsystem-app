@@ -3,9 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".Main"
     android:background="#000000">
     <item
+        android:id="@+id/action_my_agenda"
+        android:title="MyAgenda"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_my_schedule"
+        android:title="MySchedule"
+        android:orderInCategory="2"
+        app:showAsAction="never"
+        />
+    <item
         android:id="@+id/action_my_class_search"
         android:title="myClassSearch"
-        android:orderInCategory="200"
+        android:orderInCategory="3"
         app:showAsAction="never"
         />
     <item
@@ -17,14 +29,36 @@
     <item
         android:id="@+id/action_my_planner"
         android:title="myPlanner"
-        android:orderInCategory="300"
+        android:orderInCategory="4"
         app:showAsAction="never"
         />
-
     <item
         android:id="@+id/action_my_cart"
         android:title="myCart"
-        android:orderInCategory="400"
+        android:orderInCategory="5"
+       />
+    <item
+        android:id="@+id/action_my_grades"
+        android:title="MyGrades"
+        android:orderInCategory="6"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_contact"
+        android:title="Contact"
+        android:orderInCategory="7"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_logout"
+        android:title="Logout"
+        android:orderInCategory="8"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="9"
         app:showAsAction="never"
         />
 </menu>

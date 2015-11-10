@@ -37,3 +37,6 @@ proguard/
 .Spotlight*
 ehthumbs.db
 Thumbs.db
+
+# Workspace File
+workspace.xml
