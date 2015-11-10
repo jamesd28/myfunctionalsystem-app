@@ -7,10 +7,17 @@ import android.view.MenuItem;
 
 /**
  *
+ * Base abstract class for generic menu functionality. Extend this class
+ * instead of AppCompatActivity.
  */
 public abstract class MyMenu extends AppCompatActivity
 {
 
+    /**
+     *
+     * @param menu the physical menu to inflate into
+     * @return always true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -21,6 +28,11 @@ public abstract class MyMenu extends AppCompatActivity
 
     }
 
+    /**
+     *
+     * @param item the clicked item in the menu
+     * @return true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -30,6 +42,7 @@ public abstract class MyMenu extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        // handle menu actions by id. provide the corresponding clas for the id.
         switch (id)
         {
 
@@ -53,6 +66,10 @@ public abstract class MyMenu extends AppCompatActivity
 
     }
 
+    /**
+     *
+     * @param className the class of the activity to launch
+     */
     public void launchActivity(Class<?> className)
     {
 
