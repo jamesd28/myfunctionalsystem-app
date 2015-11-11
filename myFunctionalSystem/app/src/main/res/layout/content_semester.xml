@@ -7,14 +7,14 @@
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_my_class_search"
-    tools:context="cmpt305.myfunctionalsystem.myClassSearch"
+    tools:showIn="@layout/activity_semester"
+    tools:context="cmpt305.myfunctionalsystem.Semester"
     android:background="#830000">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/myClassSearchView"
+        android:id="@+id/SemesterView"
         android:background="#FFFFFF"
         android:layout_alignParentTop="true"
         android:choiceMode="singleChoice"

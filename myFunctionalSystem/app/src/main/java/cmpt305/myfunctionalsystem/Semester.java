@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class myClassSearch extends MyMenu {
+public class Semester extends MyMenu {
 
     private String[] termNames = {"Fall 2015",
                                   "Winter 2016",
@@ -22,7 +22,7 @@ public class myClassSearch extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_class_search);
+        setContentView(R.layout.activity_semester);
 
         populateTerms();
         registerClickCallBack();
@@ -57,7 +57,7 @@ public class myClassSearch extends MyMenu {
     }
 
     private void registerClickCallBack() {
-        ListView list = (ListView) findViewById(R.id.myClassSearchView);
+        ListView list = (ListView) findViewById(R.id.SemesterView);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
@@ -71,7 +71,7 @@ public class myClassSearch extends MyMenu {
     private void populateTerms() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursesearchview, termNames);
 
-        ListView list = (ListView) findViewById(R.id.myClassSearchView);
+        ListView list = (ListView) findViewById(R.id.SemesterView);
         list.setAdapter(adapter);
     }
 

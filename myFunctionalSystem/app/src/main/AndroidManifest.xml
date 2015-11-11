@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".myClassSearch"
+            android:name=".Semester"
             android:label="Select a Term"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
