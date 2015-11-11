@@ -39,4 +39,5 @@ ehthumbs.db
 Thumbs.db
 
 # Workspace File
+.idea/workspace.xml
 workspace.xml
