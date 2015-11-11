@@ -45,12 +45,12 @@
     	</activity>
 	    <activity
             android:name=".MyPlanner"
-            android:label="@string/title_activity_my_planner"
+            android:label="My_planner"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".MyCart"
-            android:label="@string/title_activity_my_cart"
+            android:label="MyCart"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
