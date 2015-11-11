@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MyPlanner extends AppCompatActivity {
+public class MyPlanner extends MyMenu {
 
     private final String[] plannedCourses = {"CMPT  491", "PHYS  124", "CMPT  315", "ECON  101", "CMPT  360", "CMPT  464",
             "PHIL  125", "MATH  200", "ECON  102", "CMPT  399", "CHEM  263", "CHEM  291", "POLS  101" };
@@ -34,38 +34,6 @@ public class MyPlanner extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Space space;
         addTableRows();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_my_class_search:
-                launchActivity(myClassSearch.class);
-                break;
-            case R.id.action_my_planner:
-                launchActivity(MyPlanner.class);
-                break;
-            case R.id.action_my_agenda:
-                launchActivity(MyAgenda.class);
-                break;
-            case R.id.action_my_cart:
-                launchActivity(MyCart.class);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void addTableRows() {

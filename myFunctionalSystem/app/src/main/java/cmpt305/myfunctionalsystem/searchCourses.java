@@ -62,31 +62,6 @@ public class searchCourses extends MyMenu {
         super.onDestroy();
     }
 
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_my_class_search:
-                launchActivity();
-                break;
-        }
-
-        //noinspection SimplifiableIfStatement
-        return super.onOptionsItemSelected(item);
-    }*/
-
     private void registerClickCallBack() {
         ListView list = (ListView) findViewById(R.id.listCourses);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,11 +83,4 @@ public class searchCourses extends MyMenu {
         Intent intent = new Intent(this, courseDescription.class);
         startActivity(intent);
     }
-
-    /*public void launchActivity() {
->>>>>>> origin/ingreyd
-        Intent intent = new Intent(this, myClassSearch.class);
-        startActivity(intent);
-    }*/
-
 }

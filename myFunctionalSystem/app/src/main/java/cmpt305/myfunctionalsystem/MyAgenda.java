@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MyAgenda extends AppCompatActivity {
+public class MyAgenda extends MyMenu {
 
     private String[] calendarTimes = {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00",
                                         "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30",
@@ -22,7 +22,7 @@ public class MyAgenda extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_my_agenda);
+        setContentView(R.layout.activity_my_agenda);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -31,38 +31,6 @@ public class MyAgenda extends AppCompatActivity {
         registerClickCallBack();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_my_class_search:
-                launchActivity(myClassSearch.class);
-                break;
-            case R.id.action_my_agenda:
-                launchActivity(MyAgenda.class);
-                break;
-            case R.id.action_my_planner:
-                launchActivity(MyPlanner.class);
-                break;
-            case R.id.action_my_cart:
-                launchActivity(MyCart.class);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void launchActivity(Class<?> className) {
         Intent intent = new Intent(this, className);

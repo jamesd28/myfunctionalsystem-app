@@ -16,25 +16,19 @@
         />
     <item
         android:id="@+id/action_my_class_search"
-        android:title="myClassSearch"
+        android:title="MyClassSearch"
         android:orderInCategory="3"
         app:showAsAction="never"
         />
     <item
-        android:id="@+id/action_my_agenda"
-        android:title="myAgenda"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        />
-    <item
         android:id="@+id/action_my_planner"
-        android:title="myPlanner"
+        android:title="MyPlanner"
         android:orderInCategory="4"
         app:showAsAction="never"
         />
     <item
         android:id="@+id/action_my_cart"
-        android:title="myCart"
+        android:title="MyCart"
         android:orderInCategory="5"
        />
     <item
@@ -53,12 +47,6 @@
         android:id="@+id/action_logout"
         android:title="Logout"
         android:orderInCategory="8"
-        app:showAsAction="never"
-        />
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="9"
         app:showAsAction="never"
         />
 </menu>

@@ -52,7 +52,7 @@
         android:id="@+id/loginButton"
         android:layout_below="@+id/passwordText"
         android:layout_centerHorizontal="true"
-        android:onClick="launchlogin" />
+        android:onClick="launchLogin" />
 
     <CheckBox
         android:layout_width="wrap_content"

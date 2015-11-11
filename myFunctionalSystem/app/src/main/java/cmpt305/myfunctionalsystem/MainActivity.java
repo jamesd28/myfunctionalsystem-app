@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 //import android.view.MenuItem;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -30,14 +31,25 @@ public class MainActivity extends MyMenu {
         Log.d(TAG, "onCreate() called");
     }
 
-    /*@Override
+    public void launchLogin(View view){
+        usernameEditText = (EditText) findViewById(R.id.unameText);
+        passwordEditText = (EditText) findViewById(R.id.passwordText);
+
+        if (usernameEditText.getText().toString().compareTo(uname) == 0
+                && passwordEditText.getText().toString().compareTo(password) == 0) {
+            Intent intent = new Intent(this, MyAgenda.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.login_menu, menu);
         return true;
-    }*/
+    }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -48,26 +60,9 @@ public class MainActivity extends MyMenu {
             case R.id.action_my_class_search:
                 launchActivity(myClassSearch.class);
                 break;
-
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
-
-/*    public void launchActivity(Class<?> className) {
-        Intent intent = new Intent(this, className);
-        startActivity(intent);
-    }*/
-
-    public void launchlogin(View view){
-        usernameEditText = (EditText) findViewById(R.id.unameText);
-        passwordEditText = (EditText) findViewById(R.id.passwordText);
-
-        if (usernameEditText.getText().toString().compareTo(uname) == 0
-                && passwordEditText.getText().toString().compareTo(password) == 0) {
-            Intent intent = new Intent(this, MyAgenda.class);
-            startActivity(intent);
-        }
     }
 
     @Override

@@ -16,7 +16,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class MyCart extends AppCompatActivity {
+public class MyCart extends MyMenu {
 
     private final String[] fallCourses = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101"};
     private final String[] winterCourses = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
@@ -36,35 +36,6 @@ public class MyCart extends AppCompatActivity {
         addTableRows(ft, fallCourses);
         addTableRows(wt, winterCourses);
         addTableRows(sst, springFallCourses);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_my_class_search:
-                launchActivity(myClassSearch.class);
-                break;
-            case R.id.action_my_planner:
-                launchActivity(MyPlanner.class);
-                break;
-            case R.id.action_my_agenda:
-                launchActivity(MyAgenda.class);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void launchActivity(Class<?> className) {

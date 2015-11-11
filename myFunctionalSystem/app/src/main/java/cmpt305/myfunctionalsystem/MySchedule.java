@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
-public class MySchedule extends AppCompatActivity {
+public class MySchedule extends MyMenu {
 
     private String[] calendarTimes = {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00",
             "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30",

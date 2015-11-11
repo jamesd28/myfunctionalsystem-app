@@ -52,16 +52,23 @@ public abstract class MyMenu extends AppCompatActivity
             case R.id.action_logout:
                 launchActivity(MainActivity.class);
                 break;
+            case R.id.action_my_schedule:
+                launchActivity(MySchedule.class);
+                break;
+            case R.id.action_my_planner:
+                launchActivity(MyPlanner.class);
+                break;
+            case R.id.action_my_cart:
+                launchActivity(MyCart.class);
+                break;
+            case R.id.action_my_agenda:
+                launchActivity(MyAgenda.class);
+                break;
+
 
         }
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-
-            return true;
-
-        }
         return super.onOptionsItemSelected(item);
 
     }

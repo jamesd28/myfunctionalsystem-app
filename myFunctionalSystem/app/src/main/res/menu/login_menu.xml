@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".Main"
+    android:background="#000000">
+    <item
+        android:id="@+id/action_my_class_search"
+        android:title="MyClassSearch"
+        android:orderInCategory="3"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_contact"
+        android:title="Contact"
+        android:orderInCategory="7"
+        app:showAsAction="never"
+        />
+</menu>
