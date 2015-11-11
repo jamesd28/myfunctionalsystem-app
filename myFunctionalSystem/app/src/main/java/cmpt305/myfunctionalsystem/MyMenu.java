@@ -47,7 +47,7 @@ public abstract class MyMenu extends AppCompatActivity
         {
 
             case R.id.action_my_class_search:
-                launchActivity(myClassSearch.class);
+                launchActivity(Department.class);
                 break;
             case R.id.action_logout:
                 launchActivity(MainActivity.class);
@@ -64,8 +64,6 @@ public abstract class MyMenu extends AppCompatActivity
             case R.id.action_my_agenda:
                 launchActivity(MyAgenda.class);
                 break;
-
-
         }
 
         //noinspection SimplifiableIfStatement

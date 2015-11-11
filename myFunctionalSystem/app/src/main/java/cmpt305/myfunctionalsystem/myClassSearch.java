@@ -76,7 +76,7 @@ public class myClassSearch extends MyMenu {
     }
 
     public void launchDepartments() {
-        Intent intent = new Intent(this, searchDepartments.class);
+        Intent intent = new Intent(this, Department.class);
         startActivity(intent);
     }
 

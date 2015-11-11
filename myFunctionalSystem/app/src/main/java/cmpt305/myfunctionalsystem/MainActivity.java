@@ -58,7 +58,7 @@ public class MainActivity extends MyMenu {
 
         switch (id) {
             case R.id.action_my_class_search:
-                launchActivity(myClassSearch.class);
+                launchActivity(Department.class);
                 break;
         }
 

@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".searchDepartments"
+            android:name=".Department"
             android:label="Select a Department"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

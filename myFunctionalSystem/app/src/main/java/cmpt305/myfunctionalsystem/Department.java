@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class searchDepartments extends MyMenu {
+public class Department extends MyMenu {
 
     private String[] departmentNames = {"Accounting",
                                         "Acupuncture",
@@ -34,7 +34,7 @@ public class searchDepartments extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_by_departments);
+        setContentView(R.layout.activity_department);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,7 +45,7 @@ public class searchDepartments extends MyMenu {
     private void populateDepartments() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursesearchview, departmentNames);
 
-        ListView list = (ListView) findViewById(R.id.listDepartments);
+        ListView list = (ListView) findViewById(R.id.DepartmentListView);
         list.setAdapter(adapter);
     }
 
@@ -75,7 +75,7 @@ public class searchDepartments extends MyMenu {
     }
 
     private void registerClickCallBack() {
-        ListView list = (ListView) findViewById(R.id.listDepartments);
+        ListView list = (ListView) findViewById(R.id.DepartmentListView);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
