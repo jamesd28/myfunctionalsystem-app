@@ -34,7 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".searchCourses"
+            android:name=".Course"
             android:label="Select a Course"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
