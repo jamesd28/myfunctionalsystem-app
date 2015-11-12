@@ -11,15 +11,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends MyMenu {
 
     //public static Intent intent;
     private final String TAG = "myFunctional System";
     private final String uname = "user";
     private final String password = "password";
+    private List<Course> courses;
 
-    EditText usernameEditText;
-    EditText passwordEditText;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class MainActivity extends MyMenu {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        courses = new ArrayList<>();
         Log.d(TAG, "onCreate() called");
     }
 
@@ -65,6 +70,9 @@ public class MainActivity extends MyMenu {
         return super.onOptionsItemSelected(item);
     }
 
+    public void getAllCourseInformation(){
+
+    }
     @Override
     protected void onStart(){
         super.onStart();

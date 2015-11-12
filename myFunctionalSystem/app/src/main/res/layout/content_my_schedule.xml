@@ -11,10 +11,19 @@
     tools:context="cmpt305.myfunctionalsystem.MySchedule"
     android:background="@color/backgroundColor">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="7"
-        android:rowCount="27"
-        android:id="@+id/classScheduleView"></GridLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView4" >
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="7"
+            android:rowCount="27"
+            android:id="@+id/classScheduleView"
+            android:columnOrderPreserved="false"
+            android:background="#FFFFFF"></GridLayout>
+    </ScrollView>
+
 </RelativeLayout>
