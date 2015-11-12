@@ -22,30 +22,52 @@ public class MyCart extends MyMenu {
     private final String[] winterCourses = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
     private final String[] springFallCourses = {"PHIL 125",  "POLS  101"};
 
-    TableLayout ft = (TableLayout) findViewById(R.id.fallTerm);
-    TableLayout wt = (TableLayout) findViewById(R.id.winterTerm);
-    TableLayout sst = (TableLayout) findViewById(R.id.springSummerTerm);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_cart);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        addTableRows(ft, fallCourses);
-        addTableRows(wt, winterCourses);
-        addTableRows(sst, springFallCourses);
+        addTableRows(fallCourses);
+        addTableRows(winterCourses);
+        addTableRows(springFallCourses);
     }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+    }
+
 
     public void launchActivity(Class<?> className) {
         Intent intent = new Intent(this, className);
         startActivity(intent);
     }
 
-    public void addTableRows(TableLayout tl, String[] courses) {
-        //TableLayout tl = (TableLayout) findViewById(R.id.coursePlannerView);
-
+    public void addTableRows(String[] courses) {
+        TableLayout tl = (TableLayout) findViewById(R.id.TermTableLayout);
 
         for (int i = 0; i < courses.length; i++) {
 
@@ -53,7 +75,7 @@ public class MyCart extends MyMenu {
             tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
 
             TextView plannerCourse = new TextView(this);
-            plannerCourse.setText("\t\t\t\t\t" + courses[i]);
+            plannerCourse.setText(courses[i] + "\t\t\t\t\t");
             plannerCourse.setTextSize(18);
             plannerCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
 

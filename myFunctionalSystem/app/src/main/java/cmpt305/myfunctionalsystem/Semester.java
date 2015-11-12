@@ -2,22 +2,26 @@ package cmpt305.myfunctionalsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-//import android.view.Menu;
-//import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Semester extends MyMenu {
 
     private String[] termNames = {"Fall 2015",
-                                  "Winter 2016",
-                                  "Spring/Summer 2016",
-                                  "Fall 2016",
-                                  "Winter 2017"};
+            "Winter 2016",
+            "Spring/Summer 2016",
+            "Fall 2016",
+            "Winter 2017"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +36,27 @@ public class Semester extends MyMenu {
     }
 
     @Override
-    protected void onRestart(){
+    protected void onRestart() {
         super.onRestart();
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
     }
 
@@ -62,7 +66,9 @@ public class Semester extends MyMenu {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
 
-                if (termNames[position].compareTo("Fall 2015") == 0) { launchDepartments(); }
+                if (termNames[position].compareTo("Fall 2015") == 0) {
+                    launchDepartments();
+                }
                 // do stuff
             }
         });
@@ -79,5 +85,9 @@ public class Semester extends MyMenu {
         Intent intent = new Intent(this, Department.class);
         startActivity(intent);
     }
+
+
+
+
 
 }
