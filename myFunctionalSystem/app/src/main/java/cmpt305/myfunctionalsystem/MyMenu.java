@@ -1,5 +1,7 @@
 package cmpt305.myfunctionalsystem;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -64,6 +66,9 @@ public abstract class MyMenu extends AppCompatActivity
             case R.id.action_my_agenda:
                 launchActivity(MyAgenda.class);
                 break;
+            case R.id.action_contact:
+                launchContactActivity();
+                break;
         }
 
         //noinspection SimplifiableIfStatement
@@ -83,4 +88,22 @@ public abstract class MyMenu extends AppCompatActivity
 
     }
 
+    /**
+     * Handles a "contact" click, by launching an email application with the appropriate fields set.
+     */
+    public void launchContactActivity(){
+        try {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("plain/text");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{"helpdesk@macewan.ca"});
+            startActivity(i.createChooser(i, "Send email using:"));
+        } catch (ActivityNotFoundException e){
+            new AlertDialog.Builder(this)
+                    .setTitle("Contact")
+                    .setMessage("Please email helpdesk@macewan.ca")
+                    .setCancelable(false)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .show();
+        }
+    }
 }
