@@ -64,6 +64,9 @@ public abstract class MyMenu extends AppCompatActivity
             case R.id.action_my_agenda:
                 launchActivity(MyAgenda.class);
                 break;
+            case R.id.action_contact:
+                launchContactActivity();
+                break;
         }
 
         //noinspection SimplifiableIfStatement
@@ -83,4 +86,13 @@ public abstract class MyMenu extends AppCompatActivity
 
     }
 
+    /**
+     * Handles a "contact" click, by launching an email application with the appropriate fields set.
+     */
+    public void launchContactActivity(){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("plain/text");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"helpdesk@macewan.ca"});
+        startActivity(i.createChooser(i, "Send email using:"));
+    }
 }
