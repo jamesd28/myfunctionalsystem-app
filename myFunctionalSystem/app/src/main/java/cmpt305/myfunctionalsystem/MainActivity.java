@@ -9,9 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.net.URL;
 import java.util.Scanner;
+import java.net.HttpURLConnection;
+
 public class MainActivity extends MyMenu {
 
     //public static Intent intent;
