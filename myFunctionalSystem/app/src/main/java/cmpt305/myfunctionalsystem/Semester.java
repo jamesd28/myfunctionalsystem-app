@@ -25,8 +25,7 @@ public class Semester extends MyMenu {
     private String[] termNames = {"Fall 2015",
             "Winter 2016",
             "Spring/Summer 2016",
-            "Fall 2016",
-            "Winter 2017"};
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
