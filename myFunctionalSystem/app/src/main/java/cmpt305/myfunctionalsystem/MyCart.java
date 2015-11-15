@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,11 +17,23 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 public class MyCart extends MyMenu {
 
-    private final String[] fallCourses = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101"};
-    private final String[] winterCourses = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
-    private final String[] springFallCourses = {"PHIL 125",  "POLS  101"};
+    private final String[] fallCourses1 = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101"};
+    private final String[] winterCourses1 = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
+    private final String[] springSummerCourses1 = {"PHIL 125",  "POLS  101"};
+
+    private List<String> fallCourses;
+    private List<String> winterCourses;
+    private List<String> springSummerCourses;
+
+    HashMap<String, List<String>> terms;
+    List<TableRow> tableRows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +42,19 @@ public class MyCart extends MyMenu {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        terms = new HashMap<>();
+        fallCourses = new ArrayList<String>(Arrays.asList(fallCourses1));
+        winterCourses = new ArrayList<String>(Arrays.asList(winterCourses1));
+        springSummerCourses = new ArrayList<String>(Arrays.asList(springSummerCourses1));
+        terms.put("Fall", fallCourses);
+        terms.put("Winter", winterCourses);
+        terms.put("Spring/Summer", springSummerCourses);
 
-        addTableRows(fallCourses);
-        addTableRows(winterCourses);
-        addTableRows(springFallCourses);
+        String term = getIntent().getStringExtra("term");
+        Log.d("display", term);
+        addTableRows(terms.get(term));
+        //addTableRows(winterCourses);
+        //addTableRows(springFallCourses);
     }
 
     @Override
@@ -66,32 +88,33 @@ public class MyCart extends MyMenu {
         startActivity(intent);
     }
 
-    public void addTableRows(String[] courses) {
+    public void addTableRows(List<String> courses) {
         TableLayout tl = (TableLayout) findViewById(R.id.TermTableLayout);
 
-        for (int i = 0; i < courses.length; i++) {
+        for (int i = 0; i < courses.size(); i++) {
 
             TableRow tr = new TableRow(this);
-            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
+            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
-            TextView plannerCourse = new TextView(this);
-            plannerCourse.setText(courses[i] + "\t\t\t\t\t");
-            plannerCourse.setTextSize(18);
-            plannerCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
+            TextView cartCourse = new TextView(this);
+            cartCourse.setText(courses.get(i) + "\t\t\t\t\t");
+            cartCourse.setTextSize(18);
+            cartCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             CheckBox selectForDelete = new CheckBox(this);
-            //selectForDelete.setText("");
-            selectForDelete.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
+            selectForDelete.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             Button deleteCourseFromCart = new Button(this);
             deleteCourseFromCart.setBackgroundColor(Color.WHITE);
             deleteCourseFromCart.setText("X");
             deleteCourseFromCart.setMaxWidth(20);
-            deleteCourseFromCart.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            deleteCourseFromCart.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
-            tr.addView(plannerCourse);
+
+            tr.addView(cartCourse);
             tr.addView(deleteCourseFromCart);
             tr.addView(selectForDelete);
+
 
             tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.FILL_PARENT));
         }

@@ -45,7 +45,7 @@ public class MySchedule extends MyMenu {
         GridLayout.Spec col = GridLayout.spec(0);
         GridLayout.Spec row;
 
-        for (int i = 1; i < rows; i+=2){
+        for (int i = 1; i < rows; i++){
             row = GridLayout.spec(i);
             TextView time = new TextView(this);
             GridLayout.LayoutParams timeBox = new GridLayout.LayoutParams(row, col);
