@@ -22,8 +22,8 @@ public class MyPlanner extends MyMenu {
     private final String[] plannedCourses = {"CMPT  491", "PHYS  124", "CMPT  315", "ECON  101", "CMPT  360", "CMPT  464",
             "PHIL  125", "MATH  200", "ECON  102", "CMPT  399", "CHEM  263", "CHEM  291", "POLS  101" };
     private List<String> coursesInPlanner;
-    HashMap<String, View[]> tableRowContents;
-    List<TableRow> tableRows;
+    private HashMap<String, View[]> tableRowContents;
+    private List<TableRow> tableRows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

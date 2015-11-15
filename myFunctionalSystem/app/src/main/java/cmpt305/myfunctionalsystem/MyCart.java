@@ -31,9 +31,12 @@ public class MyCart extends MyMenu {
     private List<String> fallCourses;
     private List<String> winterCourses;
     private List<String> springSummerCourses;
+    private List<String> currentlyViewedTerm;
 
-    HashMap<String, List<String>> terms;
-    List<TableRow> tableRows;
+    private HashMap<String, List<String>> terms;
+
+    private HashMap<String, View[]> tableRowContents;
+    private List<TableRow> tableRows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class MyCart extends MyMenu {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        tableRowContents = new HashMap<>();
+        tableRows = new ArrayList<>();
         terms = new HashMap<>();
         fallCourses = new ArrayList<String>(Arrays.asList(fallCourses1));
         winterCourses = new ArrayList<String>(Arrays.asList(winterCourses1));
@@ -51,10 +57,10 @@ public class MyCart extends MyMenu {
         terms.put("Spring/Summer", springSummerCourses);
 
         String term = getIntent().getStringExtra("term");
-        Log.d("display", term);
-        addTableRows(terms.get(term));
-        //addTableRows(winterCourses);
-        //addTableRows(springFallCourses);
+        currentlyViewedTerm = new ArrayList<>(terms.get(term));
+        //Log.d("display", term);
+        addTableRows();
+
     }
 
     @Override
@@ -88,36 +94,83 @@ public class MyCart extends MyMenu {
         startActivity(intent);
     }
 
-    public void addTableRows(List<String> courses) {
+    public void addTableRows() {
         TableLayout tl = (TableLayout) findViewById(R.id.TermTableLayout);
 
-        for (int i = 0; i < courses.size(); i++) {
+        for (int i = 0; i < currentlyViewedTerm.size(); i++) {
 
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView cartCourse = new TextView(this);
-            cartCourse.setText(courses.get(i) + "\t\t\t\t\t");
+            cartCourse.setText(currentlyViewedTerm.get(i) + "\t\t\t\t\t");
             cartCourse.setTextSize(18);
             cartCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             CheckBox selectForDelete = new CheckBox(this);
             selectForDelete.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
-            Button deleteCourseFromCart = new Button(this);
+            final Button deleteCourseFromCart = new Button(this);
             deleteCourseFromCart.setBackgroundColor(Color.WHITE);
             deleteCourseFromCart.setText("X");
             deleteCourseFromCart.setMaxWidth(20);
             deleteCourseFromCart.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-
+            deleteCourseFromCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String course = getCourseName((Button) v);
+                    deleteCourseFromCart(v, course);
+                }
+            });
 
             tr.addView(cartCourse);
             tr.addView(deleteCourseFromCart);
             tr.addView(selectForDelete);
-
+            tableRows.add(tr);
+            tableRowContents.put(currentlyViewedTerm.get(i), new TextView[]{deleteCourseFromCart, selectForDelete});
 
             tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.FILL_PARENT));
         }
+    }
+    public void browseCourseCatalog(View view){
+        launchActivity(Department.class);
+    }
+
+    public void deleteCourseFromCart(View view, String course){
+        currentlyViewedTerm.remove(course);
+        removeTableRows();
+        addTableRows();
+        //notifyStudentModel
+    }
+
+    public void deleteSelectedCartCourses(View view){
+        List<String> selectedCourses = new ArrayList<>();
+        for (String key : tableRowContents.keySet()){
+            CheckBox checkBox = (CheckBox) tableRowContents.get(key)[1];
+            if (checkBox.isChecked()){
+                currentlyViewedTerm.remove(key);
+            }
+        }
+        removeTableRows();
+        addTableRows();
+    }
+
+    public void enrollInSelectedCourses(View view){
+        Intent intent = new Intent(this, MySchedule.class);
+        startActivity(intent);
+    }
+    public void removeTableRows(){
+        TableLayout tl = (TableLayout) findViewById(R.id.TermTableLayout);
+        tl.removeAllViews();
+    }
+
+    public String getCourseName(Button button){
+        for (String key : tableRowContents.keySet()){
+            if (tableRowContents.get(key)[0].equals(button)){
+                return key;
+            }
+        }
+        return null;
     }
 
 }
