@@ -53,5 +53,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="20dp"
         android:background="@color/backgroundColor"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:onClick="deleteSelectedCourses" />
 </RelativeLayout>
