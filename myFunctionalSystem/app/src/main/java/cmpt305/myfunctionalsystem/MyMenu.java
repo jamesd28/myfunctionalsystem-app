@@ -61,7 +61,7 @@ public abstract class MyMenu extends AppCompatActivity
                 launchActivity(MyPlanner.class);
                 break;
             case R.id.action_my_cart:
-                launchActivity(MyCart.class);
+                launchActivity(Semester.class);
                 break;
             case R.id.action_my_agenda:
                 launchActivity(MyAgenda.class);

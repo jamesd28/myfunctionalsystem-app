@@ -22,8 +22,8 @@ public class MyPlanner extends MyMenu {
     private final String[] plannedCourses = {"CMPT  491", "PHYS  124", "CMPT  315", "ECON  101", "CMPT  360", "CMPT  464",
             "PHIL  125", "MATH  200", "ECON  102", "CMPT  399", "CHEM  263", "CHEM  291", "POLS  101" };
     private List<String> coursesInPlanner;
-    HashMap<String, View[]> tableRowContents;
-    List<TableRow> tableRows;
+    private HashMap<String, View[]> tableRowContents;
+    private List<TableRow> tableRows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +44,16 @@ public class MyPlanner extends MyMenu {
         for (int i = 0; i < coursesInPlanner.size(); i++) {
 
             TableRow tr = new TableRow(this);
-            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
+            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView plannerCourse = new TextView(this);
             plannerCourse.setText(coursesInPlanner.get(i) + "\t\t\t\t\t\t\t\t");
             plannerCourse.setTextSize(18);
-            plannerCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
+            plannerCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             CheckBox selectForDelete = new CheckBox(this);
-            selectForDelete.setText("");
-            selectForDelete.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
+            //selectForDelete.setText("");
+            selectForDelete.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             Button deleteCourseFromPlanner = new Button(this);
 
@@ -68,14 +68,14 @@ public class MyPlanner extends MyMenu {
                     deleteCourseFromPlanner(v, course);
                 }
             });
-            deleteCourseFromPlanner.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            deleteCourseFromPlanner.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             tr.addView(plannerCourse);
             tr.addView(deleteCourseFromPlanner);
             tr.addView(selectForDelete);
             tableRows.add(tr);
             tableRowContents.put(coursesInPlanner.get(i), new TextView[]{deleteCourseFromPlanner, selectForDelete});
-            tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.FILL_PARENT));
+            tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
     }
 

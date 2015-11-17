@@ -3,10 +3,17 @@ package cmpt305.myfunctionalsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -15,11 +22,11 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Semester extends MyMenu {
 
+    private final String TAG = "myFunctional System";
     private String[] termNames = {"Fall 2015",
             "Winter 2016",
             "Spring/Summer 2016",
-            "Fall 2016",
-            "Winter 2017"};
+            };
 
 
     Thread thread = new Thread(new Runnable() {
@@ -86,10 +93,8 @@ public class Semester extends MyMenu {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-
-                if (termNames[position].compareTo("Fall 2015") == 0) {
-                    launchDepartments();
-                }
+                String term = termNames[position];
+                launchCart(viewClicked, term);
                 // do stuff
             }
         });
@@ -107,7 +112,13 @@ public class Semester extends MyMenu {
         startActivity(intent);
     }
 
+    public void launchCart(View view, String term){
 
+        Intent intent = new Intent(this, MyCart.class);
+        //Log.d(TAG, term.split(" ")[0]);
+        intent.putExtra("term", term.split(" ")[0]);
+        startActivity(intent);
+    }
 
 
 
