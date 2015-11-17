@@ -67,7 +67,7 @@ public class CourseCodes extends MyMenu {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                launchCourseDescription();
+                launchCourseDescription(position);
             }
         });
     }
@@ -79,8 +79,9 @@ public class CourseCodes extends MyMenu {
         list.setAdapter(adapter);
     }
 
-    public void launchCourseDescription() {
+    public void launchCourseDescription(int i) {
         Intent intent = new Intent(this, courseDescription.class);
+        intent.putExtra("course", courseNames[i]);
         startActivity(intent);
     }
 }

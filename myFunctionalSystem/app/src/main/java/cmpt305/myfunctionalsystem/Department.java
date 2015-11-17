@@ -15,21 +15,20 @@ import android.widget.ListView;
 
 public class Department extends MyMenu {
 
-    private String[] departmentNames = {"Accounting",
-                                        "Acupuncture",
-                                        "Advanced Cardiac Life Support",
-                                        "Anthropology",
-                                        "Art",
-                                        "Arts and Cultural Management",
-                                        "Astronomy",
-                                        "Audiovisual Communication",
-                                        "Basic Life Support",
-                                        "Biochemistry",
-                                        "Biology",
-                                        "Botany",
-                                        "Business",
-                                        "Chemistry"};
-
+    private String[] departmentNames= {"Accounting",
+            "Acupuncture",
+            "Advanced Cardiac Life Support",
+            "Anthropology",
+            "Art",
+            "Arts and Cultural Management",
+            "Astronomy",
+            "Audiovisual Communication",
+            "Basic Life Support",
+            "Biochemistry",
+            "Biology",
+            "Botany",
+            "Business",
+            "Chemistry"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +36,14 @@ public class Department extends MyMenu {
         setContentView(R.layout.activity_department);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //int lengthOfCourseList = 0;
+        //departmentNames = new String[size];
+        //int i = 0;
+        //for (Course course : courses) {
+         //   departmentNames[i++] = course;
+        //}
+
+
 
         populateDepartments();
         registerClickCallBack();
@@ -80,15 +87,17 @@ public class Department extends MyMenu {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
 
-                if (departmentNames[position].compareTo("Accounting") == 0) { launchCourses(); }
+                launchCourses(position);
+                //if (departmentNames[position].compareTo("Accounting") == 0) { launchCourses(); }
 
                 // do stuff
             }
         });
     }
 
-    public void launchCourses() {
+    public void launchCourses(int i) {
         Intent intent = new Intent(this, CourseCodes.class);
+        intent.putExtra("course", departmentNames[i]);
         startActivity(intent);
     }
 
