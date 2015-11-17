@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -23,11 +21,34 @@ public class Semester extends MyMenu {
             "Fall 2016",
             "Winter 2017"};
 
+
+    Thread thread = new Thread(new Runnable() {
+        public void run() {
+            try {
+                URL serverUrl = new URL("http://159.203.29.177/terms");
+                HttpURLConnection urlConnection = (HttpURLConnection) serverUrl.openConnection();
+
+                // Indicate that we want to write to the HTTP request body
+                urlConnection.setRequestMethod("GET");
+
+                // Reading from the HTTP response body
+                Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
+                while (httpResponseScanner.hasNextLine()) {
+                    System.out.println(httpResponseScanner.nextLine());
+                }
+                httpResponseScanner.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semester);
 
+        thread.start();
         populateTerms();
         registerClickCallBack();
 

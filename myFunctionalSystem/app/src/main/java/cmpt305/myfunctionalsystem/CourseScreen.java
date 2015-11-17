@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class CourseCodes extends MyMenu {
+public class CourseScreen extends MyMenu {
 
     private String[] courseNames = {"ACCT 111\nFinancial Accounting I",
                                     "ACCT 161\nFinancial Accounting II",
@@ -29,7 +29,7 @@ public class CourseCodes extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course);
+        setContentView(R.layout.activity_course_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

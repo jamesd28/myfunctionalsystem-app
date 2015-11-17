@@ -26,27 +26,6 @@ public class MainActivity extends MyMenu {
     private EditText usernameEditText;
     private EditText passwordEditText;
 
-    Thread thread = new Thread(new Runnable() {
-        public void run() {
-            try {
-                URL serverUrl = new URL("http://159.203.29.177/terms");
-                HttpURLConnection urlConnection = (HttpURLConnection) serverUrl.openConnection();
-
-                // Indicate that we want to write to the HTTP request body
-                urlConnection.setRequestMethod("GET");
-
-                // Reading from the HTTP response body
-                Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
-                while (httpResponseScanner.hasNextLine()) {
-                    System.out.println(httpResponseScanner.nextLine());
-                }
-                httpResponseScanner.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    });
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +40,6 @@ public class MainActivity extends MyMenu {
     public void launchLogin(View view){
         usernameEditText = (EditText) findViewById(R.id.unameText);
         passwordEditText = (EditText) findViewById(R.id.passwordText);
-
-        thread.start();
 
         if (usernameEditText.getText().toString().compareTo(uname) == 0
                 && passwordEditText.getText().toString().compareTo(password) == 0) {

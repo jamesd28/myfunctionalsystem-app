@@ -88,7 +88,7 @@ public class Department extends MyMenu {
     }
 
     public void launchCourses() {
-        Intent intent = new Intent(this, CourseCodes.class);
+        Intent intent = new Intent(this, CourseScreen.class);
         startActivity(intent);
     }
 
