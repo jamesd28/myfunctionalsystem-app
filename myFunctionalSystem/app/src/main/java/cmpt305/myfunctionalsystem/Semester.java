@@ -11,11 +11,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -23,13 +28,9 @@ import javax.net.ssl.HttpsURLConnection;
 public class Semester extends MyMenu {
 
     private final String TAG = "myFunctional System";
-    private String[] termNames = {"Fall 2015",
-            "Winter 2016",
-            "Spring/Summer 2016",
-            };
+    private ArrayList<String> termNames = new ArrayList();
 
-
-    Thread thread = new Thread(new Runnable() {
+    Thread resultsThread = new Thread(new Runnable() {
         public void run() {
             try {
                 URL serverUrl = new URL("http://159.203.29.177/terms");
@@ -41,7 +42,9 @@ public class Semester extends MyMenu {
                 // Reading from the HTTP response body
                 Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
                 while (httpResponseScanner.hasNextLine()) {
-                    System.out.println(httpResponseScanner.nextLine());
+                    JSONArray jsonQueryResult = new JSONArray(httpResponseScanner.nextLine());
+                    for(int i = 0; i < jsonQueryResult.length(); i++)
+                        termNames.add(jsonQueryResult.getJSONObject(i).get("termName").toString());
                 }
                 httpResponseScanner.close();
             } catch (Exception e) {
@@ -49,14 +52,18 @@ public class Semester extends MyMenu {
             }
         }
     });
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semester);
 
-        thread.start();
+        resultsThread.start();
+
+        /* Waits until Thread is Done */
+        while(resultsThread.isAlive()) {};
         populateTerms();
+
         registerClickCallBack();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,9 +100,8 @@ public class Semester extends MyMenu {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                String term = termNames[position];
+                String term = termNames.get(position);
                 launchCart(viewClicked, term);
-                // do stuff
             }
         });
     }
