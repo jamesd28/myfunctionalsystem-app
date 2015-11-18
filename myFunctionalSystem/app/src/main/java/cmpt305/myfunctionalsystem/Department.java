@@ -96,7 +96,7 @@ public class Department extends MyMenu {
     }
 
     public void launchCourses(int i) {
-        Intent intent = new Intent(this, CourseCodes.class);
+        Intent intent = new Intent(this, CourseScreen.class);
         intent.putExtra("course", departmentNames[i]);
         startActivity(intent);
     }

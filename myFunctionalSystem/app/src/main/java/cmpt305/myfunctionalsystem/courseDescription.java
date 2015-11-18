@@ -13,7 +13,7 @@ public class courseDescription extends MyMenu {
             "",
             "Description\nA very insightful description of the course goes here",
     };
-    CourseCodes course;
+    CourseScreen course;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
