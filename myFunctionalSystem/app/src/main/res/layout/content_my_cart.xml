@@ -18,11 +18,12 @@
         android:text="Delete"
         android:id="@+id/dropSelectedCourses"
         android:textColor="#ffffff"
-        android:background="@color/backgroundColor"
+        android:background="@color/buttonColor"
         android:layout_above="@+id/scrollView"
         android:layout_alignRight="@+id/scrollView"
         android:layout_alignEnd="@+id/scrollView"
-        android:onClick="deleteSelectedCartCourses" />
+        android:onClick="deleteSelectedCartCourses"
+        android:width="75dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -33,9 +34,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/backgroundColor"
+        android:background="@color/buttonColor"
         android:textColor="#ffffff"
-        android:onClick="browseCourseCatalog" />
+        android:onClick="browseCourseCatalog"
+        android:width="75dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -43,7 +45,7 @@
         android:text="Enroll"
         android:id="@+id/enrollInSelectedCourses"
         android:textColor="#ffffff"
-        android:background="@color/backgroundColor"
+        android:background="@color/buttonColor"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:onClick="enrollInSelectedCourses" />

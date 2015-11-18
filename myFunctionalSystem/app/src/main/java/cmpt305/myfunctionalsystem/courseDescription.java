@@ -9,11 +9,11 @@ import android.widget.GridView;
 
 public class courseDescription extends MyMenu {
 
-    private String[] courseInfo = {"Description\n ljh ;lrejr;lh je;lhjwr; h;wlrwrj; hwj;lr jl;wrjh;l wjr;hw hjrth oerjh rlhj ;erljh;er j;lhejr;lh jlwrj hsr ogej rpojgrepoj oerj hoj wpoerjg pworjg jrwowro grjo jwogj erojg rj fpqjgj e ewog wqe;o gjpworejgpowjrgpojrwp",
-                                   "Section\nTEXT",
-                                   "Instructor\nTEXT",
-                                   "Times\nTEXT"};
-    CourseScreen course;
+    private String[] courseInfo = {
+            "",
+            "Description\nA very insightful description of the course goes here",
+    };
+    CourseCodes course;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class courseDescription extends MyMenu {
         setContentView(R.layout.activity_course_description);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        courseInfo[0] = getIntent().getStringExtra("course") + ":";
         populateDescription();
     }
 
