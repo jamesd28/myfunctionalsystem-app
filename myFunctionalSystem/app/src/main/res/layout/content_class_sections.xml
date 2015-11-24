@@ -7,15 +7,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_course_screen"
-    tools:context="cmpt305.myfunctionalsystem.CourseScreen"
-    android:background="#830000">
+    tools:showIn="@layout/activity_class_sections"
+    tools:context="cmpt305.myfunctionalsystem.ClassSections"
+    android:background="@color/backgroundColor">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/CourseListView"
-        android:background="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/classSections" />
 </RelativeLayout>

@@ -12,5 +12,6 @@
     <string name="title_activity_my_cart">myCart</string>
     <string name="title_activity_my_schedule">mySchedule</string>
     <string name="browse_course_catalogue">Browse Course\nCatalog</string>
+    <string name="title_activity_class_sections">Class Sections</string>
 
 </resources>

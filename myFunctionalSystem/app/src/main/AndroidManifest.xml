@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cmpt305.myfunctionalsystem">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="andoir.permission.ACCESS_NETWORK_STATE"/>
+    package="cmpt305.myfunctionalsystem" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="andoir.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -44,8 +45,8 @@
             android:name=".courseDescription"
             android:label="Course Information"
             android:theme="@style/AppTheme.NoActionBar" >
-    	</activity>
-	    <activity
+        </activity>
+        <activity
             android:name=".MyPlanner"
             android:label="My_planner"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -58,6 +59,11 @@
         <activity
             android:name=".MySchedule"
             android:label="MySchedule"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".ClassSections"
+            android:label="@string/title_activity_class_sections"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

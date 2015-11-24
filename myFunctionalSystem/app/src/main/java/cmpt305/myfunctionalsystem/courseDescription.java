@@ -13,7 +13,10 @@ public class courseDescription extends MyMenu {
             "",
             "Description\nA very insightful description of the course goes here",
     };
-    CourseScreen course;
+    //CourseScreen course;
+    private long courseID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,9 @@ public class courseDescription extends MyMenu {
         setContentView(R.layout.activity_course_description);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        courseInfo[0] = getIntent().getStringExtra("course") + ":";
+        courseInfo[0] = getIntent().getStringExtra("course");
+        courseInfo[1] = "Description: \n\n\t\t" + getIntent().getStringExtra("description");
+        courseID = getIntent().getLongExtra("id", -1);
         populateDescription();
     }
 
@@ -54,13 +59,11 @@ public class courseDescription extends MyMenu {
         grid.setAdapter(adapter);
     }
 
-    public void launchActivity() {
-        Intent intent = new Intent(this, Semester.class);
-        startActivity(intent);
-    }
+
 
     public void viewClassSections(View view){
-        Intent intent = new Intent(this, Semester.class);
+        Intent intent = new Intent(this, ClassSections.class);
+        intent.putExtra("id", courseID);
         startActivity(intent);
     }
 
