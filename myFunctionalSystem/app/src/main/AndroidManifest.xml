@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".MyPlanner"
-            android:label="My_planner"
+            android:label="MyPlanner"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
