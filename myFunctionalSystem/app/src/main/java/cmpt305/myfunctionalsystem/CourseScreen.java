@@ -37,7 +37,7 @@ public class CourseScreen extends MyMenu {
 
     private String course;
     private ArrayList<String> courseNames = new ArrayList<>();
-    private ArrayList<Long> classIDs = new ArrayList<>();
+    private ArrayList<Integer> classIDs = new ArrayList<>();
     private HashMap<String, String> descriptions = new HashMap<>();
 
     Thread resultsThread = new Thread(new Runnable() {
@@ -56,10 +56,11 @@ public class CourseScreen extends MyMenu {
                     for(int i = 0; i < jsonQueryResult.length(); i++){
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
                         String courseDesc = jsonQueryResult.getJSONObject(i).get("description").toString();
-                        int classID = (int) jsonQueryResult.getJSONObject(i).get("id");
+                        Integer classID = (Integer) jsonQueryResult.getJSONObject(i).get("id");
                         //Log.d("system", courseNo);
                         courseNames.add(course + " " + courseNo);
                         descriptions.put(course + " " + courseNo, courseDesc);
+                        classIDs.add(classID);
                     }
                 }
                 httpResponseScanner.close();

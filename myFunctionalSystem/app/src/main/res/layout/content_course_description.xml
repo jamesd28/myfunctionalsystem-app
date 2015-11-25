@@ -12,15 +12,14 @@
     android:background="#7b0909"
     >
 
-    <GridView
-        android:layout_width="wrap_content"
+    <ListView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/courseGrid"
-        android:background="#ffffff"
-        android:transitionGroup="true"
+        android:id="@+id/classDescription"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:background="#FFFFFF"
         android:layout_above="@+id/button2" />
 
     <Button
@@ -29,8 +28,7 @@
         android:text="View Class Sections"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/courseGrid"
-        android:layout_alignStart="@+id/courseGrid" />
+        android:onClick="viewClassSections" />
 
     <Button
         android:layout_width="match_parent"
@@ -39,7 +37,6 @@
         android:id="@+id/button2"
         android:capitalize="characters"
         android:clickable="true"
-        android:layout_above="@+id/button"
-        android:layout_alignLeft="@+id/courseGrid" />
+        android:layout_above="@+id/button" />
 
 </RelativeLayout>

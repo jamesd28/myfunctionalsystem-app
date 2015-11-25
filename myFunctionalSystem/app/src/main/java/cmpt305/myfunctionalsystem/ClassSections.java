@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class ClassSections extends AppCompatActivity {
 
     private ArrayList<String> classSections, classIDs;
-    private Long courseID;
+    private Integer courseID;
 
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
@@ -62,7 +62,7 @@ public class ClassSections extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         classSections = new ArrayList<>();
-        courseID = getIntent().getLongExtra("id", -1);
+        courseID = getIntent().getIntExtra("id", -1);
         resultsThread.start();
         /* Waits until Thread is Done */
         while(resultsThread.isAlive()) {};
