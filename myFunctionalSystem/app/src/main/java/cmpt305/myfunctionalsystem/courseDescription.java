@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ListView;
 
 public class courseDescription extends MyMenu {
 
@@ -55,8 +56,8 @@ public class courseDescription extends MyMenu {
     private void populateDescription() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursedescriptionview, courseInfo);
 
-        GridView grid = (GridView) findViewById(R.id.courseGrid);
-        grid.setAdapter(adapter);
+        ListView list = (ListView) findViewById(R.id.classDescription);
+        list.setAdapter(adapter);
     }
 
 
