@@ -2,6 +2,7 @@ package cmpt305.myfunctionalsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -21,14 +22,14 @@ public class MainActivity extends MyMenu {
 
     //public static Intent intent;
     private final String TAG = "myFunctional System";
-    private String uname = "user";
-    private String password = "password";
+    public static String uname = "";
+    public static String password = "";
     private List<Course> courses;
 
     private EditText usernameEditText;
     private EditText passwordEditText;
 
-    private boolean validated = false;
+    public static boolean validated = false;
 
     private void login()
     {
@@ -38,7 +39,7 @@ public class MainActivity extends MyMenu {
         }
     }
 
-    Thread thread = null;
+    private Thread thread = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,13 +114,13 @@ public class MainActivity extends MyMenu {
 
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         thread = null;
         getMenuInflater().inflate(R.menu.login_menu, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

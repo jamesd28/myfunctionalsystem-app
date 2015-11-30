@@ -25,8 +25,22 @@ public abstract class MyMenu extends AppCompatActivity
     {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(MainActivity.validated)
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+        else
+            getMenuInflater().inflate(R.menu.login_menu, menu);
         return true;
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+
+        if(!MainActivity.validated)
+            launchActivity(MainActivity.class);
+        else
+            super.onBackPressed();
 
     }
 
@@ -52,19 +66,37 @@ public abstract class MyMenu extends AppCompatActivity
                 launchActivity(Department.class);
                 break;
             case R.id.action_logout:
+                MainActivity.validated = false;
+                MainActivity.uname = "";
+                MainActivity.password = "";
+                launchActivity(MainActivity.class);
+                break;
+            case R.id.action_login:
                 launchActivity(MainActivity.class);
                 break;
             case R.id.action_my_schedule:
-                launchActivity(MySchedule.class);
+                if(MainActivity.validated)
+                    launchActivity(MySchedule.class);
+                else
+                    launchActivity(MainActivity.class);
                 break;
             case R.id.action_my_planner:
-                launchActivity(MyPlanner.class);
+                if(MainActivity.validated)
+                    launchActivity(MyPlanner.class);
+                else
+                    launchActivity(MainActivity.class);
                 break;
             case R.id.action_my_cart:
-                launchActivity(Semester.class);
+                if(MainActivity.validated)
+                    launchActivity(Semester.class);
+                else
+                    launchActivity(MainActivity.class);
                 break;
             case R.id.action_my_agenda:
-                launchActivity(MyAgenda.class);
+                if(MainActivity.validated)
+                    launchActivity(MyAgenda.class);
+                else
+                    launchActivity(MainActivity.class);
                 break;
             case R.id.action_contact:
                 launchContactActivity();
