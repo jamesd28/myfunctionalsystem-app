@@ -47,6 +47,7 @@ public class ClassSections extends AppCompatActivity {
 
                     }
                 }
+
                 httpResponseScanner.close();
             } catch (Exception e) {
                 e.printStackTrace();

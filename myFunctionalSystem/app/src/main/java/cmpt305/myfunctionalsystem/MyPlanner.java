@@ -1,5 +1,7 @@
 package cmpt305.myfunctionalsystem;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -101,22 +103,62 @@ public class MyPlanner extends MyMenu {
         launchActivity(Department.class);
     }
 
-    public void deleteCourseFromPlanner(View view, String course){
-        coursesInPlanner.remove(course);
-        removeTableRows();
-        addTableRows();
+    public void deleteCourseFromPlanner(View view, final String course){
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to delete "+ course + " from your planner?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        coursesInPlanner.remove(course);
+                        removeTableRows();
+                        addTableRows();
+                        dialog.cancel();
+                    }
+                });
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
         //notifyStudentModel
     }
 
     public void deleteSelectedCourses(View view){
-        List<String> selectedCourses = new ArrayList<>();
-        for (String key : tableRowContents.keySet()){
-            CheckBox checkBox = (CheckBox) tableRowContents.get(key)[1];
-            if (checkBox.isChecked()){
-                coursesInPlanner.remove(key);
-            }
-        }
-        removeTableRows();
-        addTableRows();
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to delete the selected courses from your planner?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        List<String> selectedCourses = new ArrayList<>();
+                        for (String key : tableRowContents.keySet()){
+                            CheckBox checkBox = (CheckBox) tableRowContents.get(key)[1];
+                            if (checkBox.isChecked()){
+                                coursesInPlanner.remove(key);
+                            }
+                        }
+                        removeTableRows();
+                        addTableRows();
+                        dialog.cancel();
+                    }
+                });
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
     }
 }

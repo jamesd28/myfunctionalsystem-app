@@ -1,5 +1,7 @@
 package cmpt305.myfunctionalsystem;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -105,13 +107,16 @@ public class MyCart extends MyMenu {
             TextView cartCourse = new TextView(this);
             cartCourse.setText(currentlyViewedTerm.get(i) + "\t\t\t\t\t");
             cartCourse.setTextSize(18);
+            cartCourse.setGravity(10);
             cartCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             CheckBox selectForDelete = new CheckBox(this);
+            selectForDelete.setGravity(1);
             selectForDelete.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             final Button deleteCourseFromCart = new Button(this);
             deleteCourseFromCart.setBackgroundColor(Color.WHITE);
+            deleteCourseFromCart.setGravity(1);
             deleteCourseFromCart.setText("X");
             deleteCourseFromCart.setMaxWidth(20);
             deleteCourseFromCart.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -128,7 +133,14 @@ public class MyCart extends MyMenu {
             tr.addView(selectForDelete);
             tableRows.add(tr);
             tableRowContents.put(currentlyViewedTerm.get(i), new TextView[]{deleteCourseFromCart, selectForDelete});
-
+            /*tr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String course = getCourseName((TableRow) v);
+                    Log.d("System", course);
+                    viewClassDescription(v, course);
+                }
+            });*/
             tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.FILL_PARENT));
         }
     }
@@ -136,23 +148,72 @@ public class MyCart extends MyMenu {
         launchActivity(Department.class);
     }
 
-    public void deleteCourseFromCart(View view, String course){
-        currentlyViewedTerm.remove(course);
-        removeTableRows();
-        addTableRows();
+    public void deleteCourseFromCart(View view, final String course){
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to delete "+ course + " from your shopping cart?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        currentlyViewedTerm.remove(course);
+                        removeTableRows();
+                        addTableRows();
+                        dialog.cancel();
+                    }
+                });
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
         //notifyStudentModel
     }
 
+    public void viewClassDescription(View view, String course){
+
+        Intent intent = new Intent(this, courseDescription.class);
+        intent.putExtra("course", course);
+        intent.putExtra("description", "descriptions.get(courseNames.get(i))");
+        intent.putExtra("id", 1);
+        startActivity(intent);
+    }
     public void deleteSelectedCartCourses(View view){
-        List<String> selectedCourses = new ArrayList<>();
-        for (String key : tableRowContents.keySet()){
-            CheckBox checkBox = (CheckBox) tableRowContents.get(key)[1];
-            if (checkBox.isChecked()){
-                currentlyViewedTerm.remove(key);
-            }
-        }
-        removeTableRows();
-        addTableRows();
+
+        
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to delete the selected courses from your shopping cart?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        List<String> selectedCourses = new ArrayList<>();
+                        for (String key : tableRowContents.keySet()){
+                            CheckBox checkBox = (CheckBox) tableRowContents.get(key)[1];
+                            if (checkBox.isChecked()){
+                                currentlyViewedTerm.remove(key);
+                            }
+                        }
+                        removeTableRows();
+                        addTableRows();
+                        dialog.cancel();
+                    }
+                });
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
     }
 
     public void enrollInSelectedCourses(View view){
@@ -164,9 +225,10 @@ public class MyCart extends MyMenu {
         tl.removeAllViews();
     }
 
-    public String getCourseName(Button button){
+    public String getCourseName(View button){
         for (String key : tableRowContents.keySet()){
-            if (tableRowContents.get(key)[0].equals(button)){
+            if (tableRowContents.get(key)[0].equals(button) ||
+                    tableRowContents.get(key)[1].equals(button)){
                 return key;
             }
         }
