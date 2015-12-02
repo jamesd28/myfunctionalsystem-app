@@ -14,10 +14,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class MyPlanner extends MyMenu {
 
@@ -26,6 +31,38 @@ public class MyPlanner extends MyMenu {
     private List<String> coursesInPlanner;
     private HashMap<String, View[]> tableRowContents;
     private List<TableRow> tableRows;
+    private List<Integer> classIDs;
+
+
+    Thread resultsThread = new Thread(new Runnable() {
+        public void run() {
+            try {
+                URL serverUrl = new URL("http://159.203.29.177/planner");
+                HttpURLConnection urlConnection = (HttpURLConnection) serverUrl.openConnection();
+
+                // Indicate that we want to write to the HTTP request body
+                urlConnection.setRequestMethod("GET");
+
+                // Reading from the HTTP response body
+                Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
+                while (httpResponseScanner.hasNextLine()) {
+                    JSONArray jsonQueryResult = new JSONArray(httpResponseScanner.nextLine());
+                    for(int i = 0; i < jsonQueryResult.length(); i++){
+                        String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
+                        String courseDesc = jsonQueryResult.getJSONObject(i).get("description").toString();
+                        Integer classID = (Integer) jsonQueryResult.getJSONObject(i).get("id");
+                        //Log.d("system", courseNo);
+                        coursesInPlanner.add(course + " " + courseNo);
+                        descriptions.put(course + " " + courseNo, courseDesc);
+                        classIDs.add(classID);
+                    }
+                }
+                httpResponseScanner.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
