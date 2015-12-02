@@ -19,20 +19,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClassSections extends AppCompatActivity {
 
     private ArrayList<String> classSections;
-    private ArrayList<Integer> classIDs;
-    private ArrayList<Boolean> clickedViews;
+    private ArrayList<HashMap<String, String>> sectionObjects;
     private int courseID;
     private String courseName;
 
@@ -51,13 +52,27 @@ public class ClassSections extends AppCompatActivity {
                     JSONArray jsonQueryResult = new JSONArray(httpResponseScanner.nextLine());
                     for(int i = 0; i < jsonQueryResult.length(); i++) {
                         String day = jsonQueryResult.getJSONObject(i).get("meetDates").toString();
-                        String time = jsonQueryResult.getJSONObject(i).get("startTime").toString().split("T")[1].substring(0, 5)
-                                + " - " +
-                                jsonQueryResult.getJSONObject(i).get("endTime").toString().split("T")[1].substring(0, 5);
+
+                        String startTime = jsonQueryResult.getJSONObject(i).get("startTime").toString().split("T")[1].substring(0, 5);
+                        String endTime = jsonQueryResult.getJSONObject(i).get("endTime").toString().split("T")[1].substring(0, 5);
+                        String timeString = startTime + " - " + endTime;
+
+                        String sectionID = jsonQueryResult.getJSONObject(i).get("id").toString();
                         String section = jsonQueryResult.getJSONObject(i).get("sectionNumber").toString();
-                        Log.d("ClassSections", section + "  " + day + "  " + time);
-                        classSections.add(section + "\t\t" + day + "\n" + time);
-                        clickedViews.add(false);
+                        Log.d("ClassSections", section + "  " + day + "  " + timeString);
+                        classSections.add(section + "\t\t" + day + "\n" + timeString);
+
+                        /* Adds for Calendar to use */
+                        HashMap<String, String> courseObject = new HashMap<>();
+
+                        courseObject.put("sectionID", sectionID);
+                        courseObject.put("section", section);
+                        courseObject.put("days", day);
+                        courseObject.put("startTime", startTime);
+                        courseObject.put("endTime", endTime);
+
+                        sectionObjects.add(courseObject);
+                        /* End Calendar */
                     }
                 }
 
@@ -76,9 +91,9 @@ public class ClassSections extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         classSections = new ArrayList<>();
-        classIDs = new ArrayList<>();
-        Bundle extras = getIntent().getExtras();
+        sectionObjects = new ArrayList<>();
 
+        Bundle extras = getIntent().getExtras();
         if (extras != null) {
             courseID = extras.getInt("id");
             courseName = extras.getString("name");
@@ -106,24 +121,78 @@ public class ClassSections extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                    addToCalendar(courseName,
-                                  "AS40",
-                                  "CCC - Bldg 5 - 232",
-                                  new GregorianCalendar(2015, 7, 15, 13, 00),
-                                  new GregorianCalendar(2015, 7, 15, 15, 00),
-                                  "TU,TH",
-                                  "20151202T000000Z");
+
+
+                /* Begin -- Calendar */
+                String section = sectionObjects.get(position).get("section");
+                String location = "CCC - Bldg 5 - 232";
+                String days = getDays(sectionObjects.get(position).get("days"));
+
+                /* Gets starting date to put first calendar event on */
+                int year = 2015;
+                int month = 9;
+                int day = 1;
+                while(!days.contains(convertDatetoDay(day, month, year))) { day++; }
+
+                /* Calendars for start/end times */
+                GregorianCalendar startCal =  new GregorianCalendar(year, month - 1, day,
+                        Integer.valueOf(sectionObjects.get(position).get("startTime").split(":")[0]),
+                        Integer.valueOf(sectionObjects.get(position).get("startTime").split(":")[1]));
+
+                GregorianCalendar endCal = new GregorianCalendar(year, month - 1, day,
+                        Integer.valueOf(sectionObjects.get(position).get("endTime").split(":")[0]),
+                        Integer.valueOf(sectionObjects.get(position).get("endTime").split(":")[1]));
+
+                /* Convoluted String / Specifies where to end recurrence (YYYYMMDD????????)
+                                                Best Leave the question marks as: T000000Z */
+                String untilDate = "20151202T000000Z";
+
+                /* Add to Calendar */
+                addToCalendar(courseName, section, location, days, startCal, endCal, untilDate);
+                /* End -- Calendar */
             }
+
         });
+    }
+
+    /* Source http://stason.org/TULARC/society/calendars/2-5-What-day-of-the-week-was-2-August-1953.html#.Vl6CO9-rS3U */
+    public String convertDatetoDay(int day, int month, int year) {
+        String[] days = {"SU", "MO", "TU", "WE", "TH", "FR", "SA"};
+
+        int offset = (14 - month) / 12;
+        year = year - offset;
+        month = month + 12 * offset - 2;
+
+        int dayIdx = (day + year + (year / 4) - (year / 100) + (year / 400) + (31 * month) / 12) % 7;
+        return days[dayIdx];
+    }
+
+    public String getDays(String dayString) {
+        String newDayString = "";
+        char[] allDays;
+
+        allDays = dayString.toCharArray();
+
+        for(int i = 0; i < allDays.length; i++) {
+            if(allDays[i] == 'U') { newDayString += "SU"; }
+            if(allDays[i] == 'M') { newDayString += "MO"; }
+            if(allDays[i] == 'T') { newDayString += "TU"; }
+            if(allDays[i] == 'W') { newDayString += "WE"; }
+            if(allDays[i] == 'R') { newDayString += "TH"; }
+            if(allDays[i] == 'F') { newDayString += "FR"; }
+            if(allDays[i] == 'S') { newDayString += "SA"; }
+            if(i != (allDays.length - 1)) newDayString += ",";
+        }
+        return newDayString;
     }
 
     /* Source: http://code.tutsplus.com/tutorials/android-essentials-adding-events-to-the-users-calendar--mobile-8363 */
     public void addToCalendar(String title,
                               String sectionNum,
                               String location,
+                              String days,
                               GregorianCalendar startTime,
                               GregorianCalendar endTime,
-                              String days,
                               String untilDate) {
 
         Intent calIntent = new Intent(Intent.ACTION_INSERT);
@@ -134,7 +203,6 @@ public class ClassSections extends AppCompatActivity {
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime.getTimeInMillis());
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
 
-        
         calIntent.putExtra(CalendarContract.Events.RRULE, "FREQ=WEEKLY;BYDAY=" + days + ";UNTIL=" + untilDate);
 
         startActivity(calIntent);
