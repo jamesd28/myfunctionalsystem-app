@@ -1,10 +1,13 @@
 package cmpt305.myfunctionalsystem;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +18,8 @@ import org.json.JSONArray;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class ClassSections extends AppCompatActivity {
@@ -67,7 +72,7 @@ public class ClassSections extends AppCompatActivity {
         resultsThread.start();
         /* Waits until Thread is Done */
         while(resultsThread.isAlive()) {};
-
+        addToCalendar();
     }
 
     private void populateClassSections() {
@@ -93,5 +98,28 @@ public class ClassSections extends AppCompatActivity {
                 // do stuff
             }
         });
+    }
+
+    /* Source: http://code.tutsplus.com/tutorials/android-essentials-adding-events-to-the-users-calendar--mobile-8363 */
+    public void addToCalendar() {
+
+        Intent calIntent = new Intent(Intent.ACTION_INSERT);
+        calIntent.setType("vnd.android.cursor.item/event");
+        calIntent.putExtra(CalendarContract.Events.TITLE, "Title");
+        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Location");
+        calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "Description");
+
+        GregorianCalendar startTime = new GregorianCalendar(2015, 7, 15, 13, 00);
+        GregorianCalendar endTime = new GregorianCalendar(2015, 7, 15, 15, 00);
+
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime.getTimeInMillis());
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+
+        
+        calIntent.putExtra(CalendarContract.Events.RRULE, "FREQ=WEEKLY;WKST=SU;BYDAY=TU,TH;UNTIL=20151202T000000Z");
+
+        startActivity(calIntent);
+
+
     }
 }

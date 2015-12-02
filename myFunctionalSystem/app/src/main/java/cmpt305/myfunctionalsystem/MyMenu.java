@@ -2,10 +2,13 @@ package cmpt305.myfunctionalsystem;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Date;
 
 /**
  *
@@ -76,9 +79,7 @@ public abstract class MyMenu extends AppCompatActivity
                 break;
             case R.id.action_my_schedule:
                 if(MainActivity.validated)
-                    launchActivity(MySchedule.class);
-                else
-                    launchActivity(MainActivity.class);
+                    launchCalendar();
                 break;
             case R.id.action_my_planner:
                 if(MainActivity.validated)
@@ -138,4 +139,14 @@ public abstract class MyMenu extends AppCompatActivity
                     .show();
         }
     }
+
+    public void launchCalendar() {
+        Intent i = new Intent();
+
+        ComponentName cn = new ComponentName("com.android.calendar", "com.android.calendar.LaunchActivity");
+
+        i.setComponent(cn);
+        startActivity(i);
+    }
+
 }

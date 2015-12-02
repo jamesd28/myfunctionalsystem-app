@@ -216,10 +216,6 @@ public class MyCart extends MyMenu {
 
     }
 
-    public void enrollInSelectedCourses(View view){
-        Intent intent = new Intent(this, MySchedule.class);
-        startActivity(intent);
-    }
     public void removeTableRows(){
         TableLayout tl = (TableLayout) findViewById(R.id.TermTableLayout);
         tl.removeAllViews();
