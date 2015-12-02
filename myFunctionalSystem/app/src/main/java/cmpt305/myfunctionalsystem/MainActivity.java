@@ -2,10 +2,8 @@ package cmpt305.myfunctionalsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -50,6 +48,8 @@ public class MainActivity extends MyMenu {
         setSupportActionBar(toolbar);
         courses = new ArrayList<>();
         Log.d(TAG, "onCreate() called");
+
+        findViewById(R.id.unameText).requestFocus();
     }
 
     private void makeThread() {
@@ -73,13 +73,13 @@ public class MainActivity extends MyMenu {
                     reqStream.flush();
 
                     try {
-
                         if (connection.getResponseCode() == 200) {
                             validated = true;
                             uname = usernameEditText.getText().toString();
                             password = passwordEditText.getText().toString();
-                        } else
+                        } else {
                             Log.d(TAG, String.format("%d\n", connection.getResponseCode()));
+                        }
                         reqStream.close();
 
                     }
@@ -113,14 +113,6 @@ public class MainActivity extends MyMenu {
         }
 
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        thread = null;
-        getMenuInflater().inflate(R.menu.login_menu, menu);
-        return true;
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
