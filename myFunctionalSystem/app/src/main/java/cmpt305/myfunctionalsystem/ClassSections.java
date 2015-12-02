@@ -81,6 +81,7 @@ public class ClassSections extends AppCompatActivity {
 
         if (extras != null) {
             courseID = extras.getInt("id");
+            courseName = extras.getString("name");
         }
 
         resultsThread.start();
@@ -105,7 +106,7 @@ public class ClassSections extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                    addToCalendar("CMPT 101",
+                    addToCalendar(courseName,
                                   "AS40",
                                   "CCC - Bldg 5 - 232",
                                   new GregorianCalendar(2015, 7, 15, 13, 00),

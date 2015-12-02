@@ -78,6 +78,7 @@ public class courseDescription extends MyMenu {
     public void viewClassSections(View view) {
         Intent intent = new Intent(this, ClassSections.class);
         intent.putExtra("id", courseID);
+        intent.putExtra("name", courseInfo[0]);
         startActivity(intent);
     }
 
