@@ -30,10 +30,11 @@ import java.util.Scanner;
 
 public class ClassSections extends AppCompatActivity {
 
-    private ArrayList<String> classSections, sections;
+    private ArrayList<String> classSections;
     private ArrayList<Integer> classIDs;
     private ArrayList<Boolean> clickedViews;
     private int courseID;
+    private String courseName;
 
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
@@ -57,10 +58,6 @@ public class ClassSections extends AppCompatActivity {
                         Log.d("ClassSections", section + "  " + day + "  " + time);
                         classSections.add(section + "\t\t" + day + "\n" + time);
                         clickedViews.add(false);
-                        //classIDs.add(section);
-                        //profs.add(jsonQueryResult.getJSONObject(i).get("instructor").toString());
-
-
                     }
                 }
 
@@ -81,6 +78,7 @@ public class ClassSections extends AppCompatActivity {
         classSections = new ArrayList<>();
         classIDs = new ArrayList<>();
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
             courseID = extras.getInt("id");
         }
@@ -89,10 +87,10 @@ public class ClassSections extends AppCompatActivity {
         /* Waits until Thread is Done */
         while(resultsThread.isAlive()) {};
 
-	populateClassSections();
+	    populateClassSections();
         registerClickCallBack();
 
-        addToCalendar();
+        //addToCalendar();
     }
 
     private void populateClassSections() {
@@ -107,38 +105,38 @@ public class ClassSections extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-
-                if (clickedViews.get(position)) {
-
-                } else {
-                    clickedViews.set(position, true);
-
-
-                }
+                    addToCalendar("CMPT 101",
+                                  "AS40",
+                                  "CCC - Bldg 5 - 232",
+                                  new GregorianCalendar(2015, 7, 15, 13, 00),
+                                  new GregorianCalendar(2015, 7, 15, 15, 00),
+                                  "TU,TH",
+                                  "20151202T000000Z");
             }
         });
     }
 
     /* Source: http://code.tutsplus.com/tutorials/android-essentials-adding-events-to-the-users-calendar--mobile-8363 */
-    public void addToCalendar() {
+    public void addToCalendar(String title,
+                              String sectionNum,
+                              String location,
+                              GregorianCalendar startTime,
+                              GregorianCalendar endTime,
+                              String days,
+                              String untilDate) {
 
         Intent calIntent = new Intent(Intent.ACTION_INSERT);
         calIntent.setType("vnd.android.cursor.item/event");
-        calIntent.putExtra(CalendarContract.Events.TITLE, "Title");
-        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Location");
-        calIntent.putExtra(CalendarContract.Events.DESCRIPTION, "Description");
-
-        GregorianCalendar startTime = new GregorianCalendar(2015, 7, 15, 13, 00);
-        GregorianCalendar endTime = new GregorianCalendar(2015, 7, 15, 15, 00);
+        calIntent.putExtra(CalendarContract.Events.TITLE, title + " - " + sectionNum);
+        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, location);
 
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime.getTimeInMillis());
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
 
         
-        calIntent.putExtra(CalendarContract.Events.RRULE, "FREQ=WEEKLY;WKST=SU;BYDAY=TU,TH;UNTIL=20151202T000000Z");
+        calIntent.putExtra(CalendarContract.Events.RRULE, "FREQ=WEEKLY;BYDAY=" + days + ";UNTIL=" + untilDate);
 
         startActivity(calIntent);
-
 
     }
 

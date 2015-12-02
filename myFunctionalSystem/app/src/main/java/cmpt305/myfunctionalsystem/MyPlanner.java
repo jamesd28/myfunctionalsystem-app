@@ -52,8 +52,6 @@ public class MyPlanner extends MyMenu {
                         String courseDesc = jsonQueryResult.getJSONObject(i).get("description").toString();
                         Integer classID = (Integer) jsonQueryResult.getJSONObject(i).get("id");
                         //Log.d("system", courseNo);
-                        coursesInPlanner.add(course + " " + courseNo);
-                        descriptions.put(course + " " + courseNo, courseDesc);
                         classIDs.add(classID);
                     }
                 }
