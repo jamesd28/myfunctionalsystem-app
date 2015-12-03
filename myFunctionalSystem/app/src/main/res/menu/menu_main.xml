@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".Main"
     android:background="#000000">
     <item
-        android:id="@+id/action_my_agenda"
-        android:title="MyAgenda"
+        android:id="@+id/action_home_screen"
+        android:title="MyHome"
         android:orderInCategory="1"
         app:showAsAction="never"
         />

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginScreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -22,17 +22,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Semester"
+            android:name=".SemesterScreen"
             android:label="Select a Term"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".MyAgenda"
-            android:label="MyAgenda"
+            android:name=".HomeScreen"
+            android:label="MyHome"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".Department"
+            android:name=".DepartmentScreen"
             android:label="Select a Department"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
@@ -42,22 +42,22 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".courseDescription"
+            android:name=".DescriptionScreen"
             android:label="Course Information"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".MyPlanner"
+            android:name=".PlannerScreen"
             android:label="MyPlanner"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".MyCart"
+            android:name=".CartScreen"
             android:label="MyCart"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".ClassSections"
+            android:name=".SectionsScreen"
             android:label="@string/title_activity_class_sections"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

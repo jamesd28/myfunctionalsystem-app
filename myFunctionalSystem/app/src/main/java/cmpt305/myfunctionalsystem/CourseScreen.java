@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CourseScreen extends MyMenu {
+public class CourseScreen extends MenuToolbar {
 
     /*private String[] courseNames = {"ACCT 111\nFinancial Accounting I",
                                     "ACCT 161\nFinancial Accounting II",
@@ -130,7 +130,7 @@ public class CourseScreen extends MyMenu {
     }
 
     public void launchCourseDescription(int i) {
-        Intent intent = new Intent(this, courseDescription.class);
+        Intent intent = new Intent(this, DescriptionScreen.class);
         intent.putExtra("course", courseNames.get(i));
         intent.putExtra("description", descriptions.get(courseNames.get(i)));
         intent.putExtra("id", classIDs.get(i));
