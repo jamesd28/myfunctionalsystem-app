@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -18,7 +19,7 @@ import java.net.URL;
 public class courseDescription extends MyMenu {
 
     private String[] courseInfo = {
-            "",
+            "course name goes here",
             "Description\nA very insightful description of the course goes here",
     };
     //CourseScreen course;
@@ -100,10 +101,14 @@ public class courseDescription extends MyMenu {
                     DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
                     reqStream.writeBytes(post);
                     reqStream.flush();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+
+       Toast.makeText(getApplicationContext(), courseInfo[0] + " has been added to your planner",
+                Toast.LENGTH_LONG).show();
     }
 }

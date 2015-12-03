@@ -28,7 +28,8 @@ import javax.net.ssl.HttpsURLConnection;
 public class Semester extends MyMenu {
 
     private final String TAG = "myFunctional System";
-    private ArrayList<String> termNames = new ArrayList();
+    private ArrayList<String> termNames = new ArrayList<>();
+    private ArrayList<Integer> termIds = new ArrayList<>();
 
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
@@ -43,8 +44,10 @@ public class Semester extends MyMenu {
                 Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
                 while (httpResponseScanner.hasNextLine()) {
                     JSONArray jsonQueryResult = new JSONArray(httpResponseScanner.nextLine());
-                    for(int i = 0; i < jsonQueryResult.length(); i++)
+                    for(int i = 0; i < jsonQueryResult.length(); i++) {
                         termNames.add(jsonQueryResult.getJSONObject(i).get("termName").toString());
+                        termIds.add((Integer) jsonQueryResult.getJSONObject(i).get("id"));
+                    }
                 }
                 httpResponseScanner.close();
             } catch (Exception e) {
@@ -123,6 +126,7 @@ public class Semester extends MyMenu {
         Intent intent = new Intent(this, MyCart.class);
         //Log.d(TAG, term.split(" ")[0]);
         intent.putExtra("term", term.split(" ")[0]);
+        intent.putExtra("termId", termIds.get(termNames.indexOf(term)));
         startActivity(intent);
     }
 

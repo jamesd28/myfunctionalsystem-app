@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,7 +16,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,11 +30,12 @@ import java.util.Scanner;
 public class MyPlanner extends MyMenu {
 
     private final String[] plannedCourses = {"CMPT  491", "PHYS  124", "CMPT  315", "ECON  101", "CMPT  360", "CMPT  464",
-            "PHIL  125", "MATH  200", "ECON  102", "CMPT  399", "CHEM  263", "CHEM  291", "POLS  101" };
-    private List<String> coursesInPlanner;
+            "PHIL  125", "MATH  200", "ECON  102", "CMPT  399", "CHEM  263", "CHEM  291", "POLS  101", "CMPT  101" };
+    private ArrayList<String> coursesInPlanner = new ArrayList<>();
     private HashMap<String, View[]> tableRowContents;
     private List<TableRow> tableRows;
     private List<Integer> classIDs;
+    private HashMap<String, String> descriptions;
 
 
     Thread resultsThread = new Thread(new Runnable() {
@@ -48,11 +52,13 @@ public class MyPlanner extends MyMenu {
                 while (httpResponseScanner.hasNextLine()) {
                     JSONArray jsonQueryResult = new JSONArray(httpResponseScanner.nextLine());
                     for(int i = 0; i < jsonQueryResult.length(); i++){
+                        String courseCode = jsonQueryResult.getJSONObject(i).get("code").toString();
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
                         String courseDesc = jsonQueryResult.getJSONObject(i).get("description").toString();
                         Integer classID = (Integer) jsonQueryResult.getJSONObject(i).get("id");
-                        //Log.d("system", courseNo);
-                        classIDs.add(classID);
+			classIDs.add(classID);
+                        coursesInPlanner.add(courseCode + "  " + courseNo);
+                        Log.d("Planner ", courseCode + " " + courseNo);
                     }
                 }
                 httpResponseScanner.close();
@@ -70,6 +76,9 @@ public class MyPlanner extends MyMenu {
         setSupportActionBar(toolbar);
         coursesInPlanner = new ArrayList<String>(Arrays.asList(plannedCourses));
         tableRowContents = new HashMap<>();
+        resultsThread.start();
+        /* Waits until Thread is Done */
+        while(resultsThread.isAlive()) {};
 
         addTableRows();
     }
@@ -146,6 +155,29 @@ public class MyPlanner extends MyMenu {
         builder1.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    JSONObject json = new JSONObject();
+                                    String post = json.toString();
+                                    URL myFunctionalServer = new URL("http://159.203.29.177/planner/delete/");
+                                    HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
+                                    connection.setRequestMethod("POST");
+                                    connection.setDoOutput(true);
+                                    connection.setFixedLengthStreamingMode(post.getBytes().length);
+                                    connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                                    connection.connect();
+
+                                    DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
+                                    reqStream.writeBytes(post);
+                                    reqStream.flush();
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                         coursesInPlanner.remove(course);
                         removeTableRows();
                         addTableRows();

@@ -37,6 +37,7 @@
         android:id="@+id/button2"
         android:capitalize="characters"
         android:clickable="true"
-        android:layout_above="@+id/button" />
+        android:layout_above="@+id/button"
+        android:onClick="addToPlanner" />
 
 </RelativeLayout>
