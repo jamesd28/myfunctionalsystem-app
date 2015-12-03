@@ -29,7 +29,7 @@ public class CartScreen extends MenuToolbar {
 
     private final String[] fallCourses1 = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101", "CMPT  101"};
     private final String[] winterCourses1 = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
-    private final String[] springSummerCourses1 = {}; // {"PHIL 125",  "POLS  101"};
+    private final String[] springSummerCourses1 = {"PHIL 125",  "POLS  101"};
 
     private List<String> fallCourses;
     private List<String> winterCourses;
