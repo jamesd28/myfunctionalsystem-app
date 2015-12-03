@@ -101,13 +101,16 @@ public class courseDescription extends MyMenu {
                     reqStream.writeBytes(post);
                     reqStream.flush();
 
+                    Toast.makeText(getApplicationContext(), courseInfo[0] + " has been added to your planner",
+                            Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+        thread.start();
+        /* Waits until Thread is Done */
+        while(thread.isAlive()) {};
 
-       Toast.makeText(getApplicationContext(), courseInfo[0] + " has been added to your planner",
-                Toast.LENGTH_LONG).show();
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,11 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ClassSections extends AppCompatActivity {
+public class ClassSections extends MyMenu {
 
     private ArrayList<String> classSections, sections;
     private ArrayList<Integer> classIDs;
-    private ArrayList<Boolean> clickedViews;
+    private ArrayList<Boolean> clickedViews = new ArrayList<>();
     private int courseID;
 
     Thread resultsThread = new Thread(new Runnable() {
@@ -50,7 +51,8 @@ public class ClassSections extends AppCompatActivity {
                         Log.d("ClassSections", section + "  " + day + "  " + time);
                         classSections.add(section + "\t\t" + day + "\n" + time);
                         clickedViews.add(false);
-                        //classIDs.add(section);
+                        Integer classId = (Integer) jsonQueryResult.getJSONObject(i).get("sectionId");
+                        classIDs.add(classId);
                         //profs.add(jsonQueryResult.getJSONObject(i).get("instructor").toString());
 
 
@@ -97,10 +99,38 @@ public class ClassSections extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.classSections);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View viewClicked, final int position, long id) {
 
                 if (clickedViews.get(position)) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject json = new JSONObject();
+                                String post = json.toString();
+                                URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/"+courseID);
+                                HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
+                                connection.setRequestMethod("POST");
+                                connection.setDoOutput(true);
+                                connection.setFixedLengthStreamingMode(post.getBytes().length);
+                                connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                                connection.connect();
 
+                                DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
+                                reqStream.writeBytes(post);
+                                reqStream.flush();
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    thread.start();
+        /* Waits until Thread is Done */
+                    while(thread.isAlive()) {};
+                    Toast.makeText(getApplicationContext(),  classSections.get(position).split("\t")[0]+ " has been added to your shopping cart",
+                            Toast.LENGTH_LONG).show();
                 } else {
                     clickedViews.set(position, true);
 
