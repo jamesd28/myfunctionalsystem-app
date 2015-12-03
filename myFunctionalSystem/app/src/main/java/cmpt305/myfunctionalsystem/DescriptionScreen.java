@@ -3,10 +3,8 @@ package cmpt305.myfunctionalsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,7 +14,7 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class courseDescription extends MyMenu {
+public class DescriptionScreen extends MenuToolbar {
 
     private String[] courseInfo = {
             "course name goes here",
@@ -29,7 +27,7 @@ public class courseDescription extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_description);
+        setContentView(R.layout.activity_description_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         courseInfo[0] = getIntent().getStringExtra("course");
@@ -77,7 +75,7 @@ public class courseDescription extends MyMenu {
 
 
     public void viewClassSections(View view) {
-        Intent intent = new Intent(this, ClassSections.class);
+        Intent intent = new Intent(this, SectionsScreen.class);
         intent.putExtra("id", courseID);
         intent.putExtra("name", courseInfo[0]);
         startActivity(intent);

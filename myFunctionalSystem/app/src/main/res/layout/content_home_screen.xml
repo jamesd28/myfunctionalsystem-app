@@ -5,25 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="cmpt305.myfunctionalsystem.MyAgenda"
-    tools:showIn="@layout/activity_my_agenda">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="myAgenda"
-        android:id="@+id/textView2"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    tools:context="cmpt305.myfunctionalsystem.HomeScreen"
+    tools:showIn="@layout/activity_home_screen">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="30dp"

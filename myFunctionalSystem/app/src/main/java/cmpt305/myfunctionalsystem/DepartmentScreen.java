@@ -18,10 +18,9 @@ import org.json.JSONArray;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class Department extends MyMenu {
+public class DepartmentScreen extends MenuToolbar {
 
     private String[] departmentNames= {"Accounting",
             "Acupuncture",
@@ -67,7 +66,7 @@ public class Department extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_department);
+        setContentView(R.layout.activity_department_screen);
         //deptNames = new ArrayList<>();
         resultsThread.start();
         /* Waits until Thread is Done */

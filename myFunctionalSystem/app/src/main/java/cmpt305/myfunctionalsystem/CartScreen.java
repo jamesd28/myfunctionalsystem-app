@@ -5,13 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,11 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class MyCart extends MyMenu {
+public class CartScreen extends MenuToolbar {
 
     private final String[] fallCourses1 = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101", "CMPT  101"};
     private final String[] winterCourses1 = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
-    private final String[] springSummerCourses1 = {"PHIL 125",  "POLS  101"};
+    private final String[] springSummerCourses1 = {}; // {"PHIL 125",  "POLS  101"};
 
     private List<String> fallCourses;
     private List<String> winterCourses;
@@ -52,7 +46,7 @@ public class MyCart extends MyMenu {
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
             try {
-                URL serverUrl = new URL("http://159.203.29.177/cart/" + termId);
+                URL serverUrl = new URL("http://159.203.29.177/cart/1");
                 HttpURLConnection urlConnection = (HttpURLConnection) serverUrl.openConnection();
 
                 // Indicate that we want to write to the HTTP request body
@@ -67,6 +61,7 @@ public class MyCart extends MyMenu {
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
                         currentlyViewedTerm.add(courseCode + "  " + courseNo);
                     }
+                    System.out.println(currentlyViewedTerm);
                 }
                 httpResponseScanner.close();
             } catch (Exception e) {
@@ -78,7 +73,7 @@ public class MyCart extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_cart);
+        setContentView(R.layout.activity_cart_screen);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -180,7 +175,7 @@ public class MyCart extends MyMenu {
         }
     }
     public void browseCourseCatalog(View view){
-        launchActivity(Department.class);
+        launchActivity(DepartmentScreen.class);
     }
 
     public void deleteCourseFromCart(View view, final String course){
@@ -235,7 +230,7 @@ public class MyCart extends MyMenu {
 
     public void viewClassDescription(View view, String course){
 
-        Intent intent = new Intent(this, courseDescription.class);
+        Intent intent = new Intent(this, DescriptionScreen.class);
         intent.putExtra("course", course);
         intent.putExtra("description", "descriptions.get(courseNames.get(i))");
         intent.putExtra("id", 1);

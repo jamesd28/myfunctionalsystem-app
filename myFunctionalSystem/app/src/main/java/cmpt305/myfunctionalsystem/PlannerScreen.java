@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -27,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class MyPlanner extends MyMenu {
+public class PlannerScreen extends MenuToolbar {
 
     private final String[] plannedCourses = {"CMPT  491", "PHYS  124", "CMPT  315", "ECON  101", "CMPT  360", "CMPT  464",
             "PHIL  125", "MATH  200", "ECON  102", "CMPT  399", "CHEM  263", "CHEM  291", "POLS  101", "CMPT  101" };
@@ -56,7 +55,7 @@ public class MyPlanner extends MyMenu {
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
                         String courseDesc = jsonQueryResult.getJSONObject(i).get("description").toString();
                         Integer classID = (Integer) jsonQueryResult.getJSONObject(i).get("id");
-			classIDs.add(classID);
+			            classIDs.add(classID);
                         coursesInPlanner.add(courseCode + "  " + courseNo);
                         Log.d("Planner ", courseCode + " " + courseNo);
                     }
@@ -71,7 +70,7 @@ public class MyPlanner extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_planner);
+        setContentView(R.layout.activity_planner_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         coursesInPlanner = new ArrayList<String>(Arrays.asList(plannedCourses));
@@ -144,7 +143,7 @@ public class MyPlanner extends MyMenu {
     }
 
     public void browseCourseCatalog(View view){
-        launchActivity(Department.class);
+        launchActivity(DepartmentScreen.class);
     }
 
     public void deleteCourseFromPlanner(View view, final String course){

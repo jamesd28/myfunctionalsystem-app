@@ -3,29 +3,19 @@ package cmpt305.myfunctionalsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashMap;
 import java.util.Scanner;
 
-import javax.net.ssl.HttpsURLConnection;
-
-public class Semester extends MyMenu {
+public class SemesterScreen extends MenuToolbar {
 
     private final String TAG = "myFunctional System";
     private ArrayList<String> termNames = new ArrayList<>();
@@ -59,7 +49,7 @@ public class Semester extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semester);
+        setContentView(R.layout.activity_semester_screen);
 
         resultsThread.start();
 
@@ -117,13 +107,13 @@ public class Semester extends MyMenu {
     }
 
     public void launchDepartments() {
-        Intent intent = new Intent(this, Department.class);
+        Intent intent = new Intent(this, DepartmentScreen.class);
         startActivity(intent);
     }
 
     public void launchCart(View view, String term){
 
-        Intent intent = new Intent(this, MyCart.class);
+        Intent intent = new Intent(this, CartScreen.class);
         //Log.d(TAG, term.split(" ")[0]);
         intent.putExtra("term", term.split(" ")[0]);
         intent.putExtra("termId", termIds.get(termNames.indexOf(term)));

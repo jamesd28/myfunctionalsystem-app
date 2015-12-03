@@ -11,20 +11,17 @@ import android.widget.EditText;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
-import java.net.CookieManager;
-import java.net.CookieStore;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.URL;
 import java.net.HttpURLConnection;
 
-public class MainActivity extends MyMenu {
+public class LoginScreen extends MenuToolbar {
 
     //public static Intent intent;
     private final String TAG = "myFunctional System";
     public static String uname = "";
     public static String password = "";
-    private List<Course> courses;
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -34,7 +31,7 @@ public class MainActivity extends MyMenu {
     private void login()
     {
         if(validated) {
-            Intent intent = new Intent(this, MyAgenda.class);
+            Intent intent = new Intent(this, HomeScreen.class);
             startActivity(intent);
         }
     }
@@ -44,11 +41,10 @@ public class MainActivity extends MyMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login_screen);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        courses = new ArrayList<>();
         Log.d(TAG, "onCreate() called");
 
         findViewById(R.id.unameText).requestFocus();
@@ -125,7 +121,7 @@ public class MainActivity extends MyMenu {
 
         switch (id) {
             case R.id.action_my_class_search:
-                launchActivity(Department.class);
+                launchActivity(DepartmentScreen.class);
                 break;
         }
 

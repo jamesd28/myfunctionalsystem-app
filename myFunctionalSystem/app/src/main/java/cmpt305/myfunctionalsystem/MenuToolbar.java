@@ -8,15 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Date;
-
 /**
  *
  * Base abstract class for generic menu functionality. Extend this class
  * instead of AppCompatActivity.
  */
-public abstract class MyMenu extends AppCompatActivity
-{
+public abstract class MenuToolbar extends AppCompatActivity {
 
     /**
      *
@@ -28,7 +25,7 @@ public abstract class MyMenu extends AppCompatActivity
     {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        if(MainActivity.validated)
+        if(LoginScreen.validated)
             getMenuInflater().inflate(R.menu.menu_main, menu);
         else
             getMenuInflater().inflate(R.menu.login_menu, menu);
@@ -40,8 +37,8 @@ public abstract class MyMenu extends AppCompatActivity
     public void onBackPressed()
     {
 
-        if(!MainActivity.validated)
-            launchActivity(MainActivity.class);
+        if(!LoginScreen.validated)
+            launchActivity(LoginScreen.class);
         else
             super.onBackPressed();
 
@@ -66,38 +63,35 @@ public abstract class MyMenu extends AppCompatActivity
         {
 
             case R.id.action_my_class_search:
-                launchActivity(Department.class);
+                launchActivity(DepartmentScreen.class);
                 break;
             case R.id.action_logout:
-                MainActivity.validated = false;
-                MainActivity.uname = "";
-                MainActivity.password = "";
-                launchActivity(MainActivity.class);
-                break;
-            case R.id.action_login:
-                launchActivity(MainActivity.class);
+                LoginScreen.validated = false;
+                LoginScreen.uname = "";
+                LoginScreen.password = "";
+                launchActivity(LoginScreen.class);
                 break;
             case R.id.action_my_schedule:
-                if(MainActivity.validated)
+                if(LoginScreen.validated)
                     launchCalendar();
                 break;
             case R.id.action_my_planner:
-                if(MainActivity.validated)
-                    launchActivity(MyPlanner.class);
+                if(LoginScreen.validated)
+                    launchActivity(PlannerScreen.class);
                 else
-                    launchActivity(MainActivity.class);
+                    launchActivity(LoginScreen.class);
                 break;
             case R.id.action_my_cart:
-                if(MainActivity.validated)
-                    launchActivity(Semester.class);
+                if(LoginScreen.validated)
+                    launchActivity(SemesterScreen.class);
                 else
-                    launchActivity(MainActivity.class);
+                    launchActivity(LoginScreen.class);
                 break;
-            case R.id.action_my_agenda:
-                if(MainActivity.validated)
-                    launchActivity(MyAgenda.class);
+            case R.id.action_home_screen:
+                if(LoginScreen.validated)
+                    launchActivity(HomeScreen.class);
                 else
-                    launchActivity(MainActivity.class);
+                    launchActivity(LoginScreen.class);
                 break;
             case R.id.action_contact:
                 launchContactActivity();

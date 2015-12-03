@@ -3,11 +3,8 @@ package cmpt305.myfunctionalsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
 
 import android.util.Log;
 import android.view.View;
@@ -19,18 +16,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
-public class ClassSections extends AppCompatActivity {
+public class SectionsScreen extends MenuToolbar {
 
     private ArrayList<String> classSections;
     private ArrayList<HashMap<String, String>> sectionObjects;
@@ -86,7 +80,7 @@ public class ClassSections extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_sections);
+        setContentView(R.layout.activity_sections_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -103,13 +97,13 @@ public class ClassSections extends AppCompatActivity {
         /* Waits until Thread is Done */
         while(resultsThread.isAlive()) {};
 
-	    populateClassSections();
+	    populateSections();
         registerClickCallBack();
 
         //addToCalendar();
     }
 
-    private void populateClassSections() {
+    private void populateSections() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.coursesearchview, classSections);
 
         ListView list = (ListView) findViewById(R.id.classSections);

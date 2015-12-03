@@ -8,7 +8,7 @@
     android:paddingBottom="0dp"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_my_planner" tools:context="cmpt305.myfunctionalsystem.MyPlanner"
+    tools:showIn="@layout/activity_planner_screen" tools:context="cmpt305.myfunctionalsystem.PlannerScreen"
     android:background="@color/backgroundColor">
 
     <ScrollView

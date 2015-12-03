@@ -14,10 +14,4 @@
         android:orderInCategory="7"
         app:showAsAction="never"
         />
-    <item
-        android:id="@+id/action_login"
-        android:title="Login"
-        android:orderInCategory="8"
-        app:showAsAction="never"
-        />
 </menu>

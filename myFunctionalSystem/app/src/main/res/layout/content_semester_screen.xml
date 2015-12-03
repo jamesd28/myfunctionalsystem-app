@@ -8,7 +8,7 @@
     android:paddingBottom="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_semester"
-    tools:context="cmpt305.myfunctionalsystem.Semester"
+    tools:context="cmpt305.myfunctionalsystem.SemesterScreen"
     android:background="#830000">
 
     <ListView
