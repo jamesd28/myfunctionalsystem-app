@@ -13,6 +13,8 @@ import android.widget.EditText;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
+import java.net.CookieManager;
+import java.net.CookieStore;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.URL;

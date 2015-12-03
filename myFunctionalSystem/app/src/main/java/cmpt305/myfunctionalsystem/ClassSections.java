@@ -110,15 +110,14 @@ public class ClassSections extends AppCompatActivity {
         });
     }
 
-    /*private void addToCart(){
-        thread = new Thread(new Runnable() {
+    private void addToCart(){
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    JSONObject json = new JSONObject().put("password", passwordEditText.getText().toString()).put("netid", usernameEditText.getText().toString());
+                    JSONObject json = new JSONObject().put("", "");
                     String post = json.toString();
-                    Log.d(TAG, post);
-                    URL myFunctionalServer = new URL("http://159.203.29.177/auth/login/");
+                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/add"+ courseID);
                     HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setDoOutput(true);
@@ -135,6 +134,6 @@ public class ClassSections extends AppCompatActivity {
                 }
             }
         });
-    }*/
+    }
 }
 

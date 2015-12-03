@@ -19,14 +19,21 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.DataOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class MyCart extends MyMenu {
 
-    private final String[] fallCourses1 = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101"};
+    private final String[] fallCourses1 = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101", "CMPT  101"};
     private final String[] winterCourses1 = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
     private final String[] springSummerCourses1 = {"PHIL 125",  "POLS  101"};
 
@@ -34,11 +41,39 @@ public class MyCart extends MyMenu {
     private List<String> winterCourses;
     private List<String> springSummerCourses;
     private List<String> currentlyViewedTerm;
+    private String term;
+    private Integer termId;
 
     private HashMap<String, List<String>> terms;
 
     private HashMap<String, View[]> tableRowContents;
     private List<TableRow> tableRows;
+
+    Thread resultsThread = new Thread(new Runnable() {
+        public void run() {
+            try {
+                URL serverUrl = new URL("http://159.203.29.177/cart/" + termId);
+                HttpURLConnection urlConnection = (HttpURLConnection) serverUrl.openConnection();
+
+                // Indicate that we want to write to the HTTP request body
+                urlConnection.setRequestMethod("GET");
+
+                // Reading from the HTTP response body
+                Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
+                while (httpResponseScanner.hasNextLine()) {
+                    JSONArray jsonQueryResult = new JSONArray(httpResponseScanner.nextLine());
+                    for(int i = 0; i < jsonQueryResult.length(); i++){
+                        String courseCode = jsonQueryResult.getJSONObject(i).get("code").toString();
+                        String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
+                        currentlyViewedTerm.add(courseCode + "  " + courseNo);
+                    }
+                }
+                httpResponseScanner.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +93,16 @@ public class MyCart extends MyMenu {
         terms.put("Winter", winterCourses);
         terms.put("Spring/Summer", springSummerCourses);
 
-        String term = getIntent().getStringExtra("term");
+        term = getIntent().getStringExtra("term");
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            termId = extras.getInt("termId");
+        }
         currentlyViewedTerm = new ArrayList<>(terms.get(term));
-        //Log.d("display", term);
+
+        resultsThread.start();
+        /* Waits until Thread is Done */
+        while(resultsThread.isAlive()) {};
         addTableRows();
 
     }
@@ -133,14 +175,7 @@ public class MyCart extends MyMenu {
             tr.addView(selectForDelete);
             tableRows.add(tr);
             tableRowContents.put(currentlyViewedTerm.get(i), new TextView[]{deleteCourseFromCart, selectForDelete});
-            /*tr.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String course = getCourseName((TableRow) v);
-                    Log.d("System", course);
-                    viewClassDescription(v, course);
-                }
-            });*/
+
             tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.FILL_PARENT));
         }
     }
@@ -156,6 +191,29 @@ public class MyCart extends MyMenu {
         builder1.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    JSONObject json = new JSONObject().put("", "");
+                                    String post = json.toString();
+                                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/delete/"+ "");
+                                    HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
+                                    connection.setRequestMethod("POST");
+                                    connection.setDoOutput(true);
+                                    connection.setFixedLengthStreamingMode(post.getBytes().length);
+                                    connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                                    connection.connect();
+
+                                    DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
+                                    reqStream.writeBytes(post);
+                                    reqStream.flush();
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                         currentlyViewedTerm.remove(course);
                         removeTableRows();
                         addTableRows();
