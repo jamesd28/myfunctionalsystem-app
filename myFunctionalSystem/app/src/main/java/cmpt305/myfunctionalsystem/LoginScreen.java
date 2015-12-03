@@ -11,14 +11,10 @@ import android.widget.EditText;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.net.URL;
 import java.net.HttpURLConnection;
 
 public class LoginScreen extends MenuToolbar {
-
-    //public static Intent intent;
     private final String TAG = "myFunctional System";
     public static String uname = "";
     public static String password = "";
@@ -114,9 +110,6 @@ public class LoginScreen extends MenuToolbar {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {
@@ -128,9 +121,6 @@ public class LoginScreen extends MenuToolbar {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getAllCourseInformation(){
-
-    }
     @Override
     protected void onStart(){
         super.onStart();

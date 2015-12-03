@@ -33,9 +33,6 @@ public class PlannerScreen extends MenuToolbar {
     private ArrayList<String> coursesInPlanner = new ArrayList<>();
     private HashMap<String, View[]> tableRowContents;
     private List<TableRow> tableRows;
-    private List<Integer> classIDs;
-    private HashMap<String, String> descriptions;
-
 
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
@@ -55,7 +52,6 @@ public class PlannerScreen extends MenuToolbar {
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
                         String courseDesc = jsonQueryResult.getJSONObject(i).get("description").toString();
                         Integer classID = (Integer) jsonQueryResult.getJSONObject(i).get("id");
-			            classIDs.add(classID);
                         coursesInPlanner.add(courseCode + "  " + courseNo);
                         Log.d("Planner ", courseCode + " " + courseNo);
                     }
@@ -97,7 +93,6 @@ public class PlannerScreen extends MenuToolbar {
             plannerCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             CheckBox selectForDelete = new CheckBox(this);
-            //selectForDelete.setText("");
             selectForDelete.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             Button deleteCourseFromPlanner = new Button(this);
@@ -192,8 +187,6 @@ public class PlannerScreen extends MenuToolbar {
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
-
-        //notifyStudentModel
     }
 
     public void deleteSelectedCourses(View view){

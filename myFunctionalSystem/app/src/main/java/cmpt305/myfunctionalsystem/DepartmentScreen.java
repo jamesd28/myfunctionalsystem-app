@@ -2,12 +2,7 @@ package cmpt305.myfunctionalsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
-//import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-//import android.view.Menu;
-//import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,22 +16,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DepartmentScreen extends MenuToolbar {
-
-    private String[] departmentNames= {"Accounting",
-            "Acupuncture",
-            "Advanced Cardiac Life Support",
-            "Anthropology",
-            "Art",
-            "Arts and Cultural Management",
-            "Astronomy",
-            "Audiovisual Communication",
-            "Basic Life Support",
-            "Biochemistry",
-            "Biology",
-            "Botany",
-            "Business",
-            "Chemistry"};
-
     private ArrayList<String> deptNames = new ArrayList<>();
 
     Thread resultsThread = new Thread(new Runnable() {
@@ -67,8 +46,9 @@ public class DepartmentScreen extends MenuToolbar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_department_screen);
-        //deptNames = new ArrayList<>();
+
         resultsThread.start();
+
         /* Waits until Thread is Done */
         while(resultsThread.isAlive()) {};
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,11 +95,7 @@ public class DepartmentScreen extends MenuToolbar {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-
                 launchCourses(position);
-                //if (departmentNames[position].compareTo("Accounting") == 0) { launchCourses(); }
-
-                // do stuff
             }
         });
     }

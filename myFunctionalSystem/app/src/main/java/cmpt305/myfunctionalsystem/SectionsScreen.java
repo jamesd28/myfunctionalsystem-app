@@ -3,7 +3,6 @@ package cmpt305.myfunctionalsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
@@ -94,13 +93,12 @@ public class SectionsScreen extends MenuToolbar {
         }
 
         resultsThread.start();
+
         /* Waits until Thread is Done */
         while(resultsThread.isAlive()) {};
 
 	    populateSections();
         registerClickCallBack();
-
-        //addToCalendar();
     }
 
     private void populateSections() {

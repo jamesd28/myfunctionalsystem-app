@@ -32,11 +32,12 @@ public class DescriptionScreen extends MenuToolbar {
         setSupportActionBar(toolbar);
         courseInfo[0] = getIntent().getStringExtra("course");
         courseInfo[1] = "Description: \n\n\t\t" + getIntent().getStringExtra("description");
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             courseID = extras.getInt("id");
         }
-        //courseID = getIntent().getLongExtra("id", -1);
+
         populateDescription();
     }
 

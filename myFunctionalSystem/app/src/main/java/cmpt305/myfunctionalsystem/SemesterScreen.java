@@ -114,12 +114,8 @@ public class SemesterScreen extends MenuToolbar {
     public void launchCart(View view, String term){
 
         Intent intent = new Intent(this, CartScreen.class);
-        //Log.d(TAG, term.split(" ")[0]);
         intent.putExtra("term", term.split(" ")[0]);
         intent.putExtra("termId", termIds.get(termNames.indexOf(term)));
         startActivity(intent);
     }
-
-
-
 }

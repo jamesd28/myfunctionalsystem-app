@@ -36,7 +36,6 @@ public class CartScreen extends MenuToolbar {
     private List<String> springSummerCourses;
     private List<String> currentlyViewedTerm;
     private String term;
-    private Integer termId;
 
     private HashMap<String, List<String>> terms;
 
@@ -88,10 +87,9 @@ public class CartScreen extends MenuToolbar {
         terms.put("Winter", winterCourses);
         terms.put("Spring/Summer", springSummerCourses);
 
-        term = getIntent().getStringExtra("term");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            termId = extras.getInt("termId");
+            term = extras.getString("term");
         }
         currentlyViewedTerm = new ArrayList<>(terms.get(term));
 

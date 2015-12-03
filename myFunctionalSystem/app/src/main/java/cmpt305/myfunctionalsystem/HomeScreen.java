@@ -40,7 +40,6 @@ public class HomeScreen extends MenuToolbar {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 TextView textView = (TextView) viewClicked;
-                // do stuff
             }
 
         });
