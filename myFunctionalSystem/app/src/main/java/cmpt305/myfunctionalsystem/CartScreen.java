@@ -138,7 +138,7 @@ public class CartScreen extends MenuToolbar {
             tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView cartCourse = new TextView(this);
-            cartCourse.setText(currentlyViewedTerm.get(i) + "\t\t\t\t\t");
+            cartCourse.setText(currentlyViewedTerm.get(i) + "\t\t\t\t");
             cartCourse.setTextSize(18);
             cartCourse.setGravity(10);
             cartCourse.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));

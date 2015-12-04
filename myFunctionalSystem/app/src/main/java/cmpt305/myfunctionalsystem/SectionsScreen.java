@@ -32,6 +32,7 @@ public class SectionsScreen extends MenuToolbar {
     private int courseID;
     private String courseName;
 
+    private Integer selectedClassID;
     private ArrayList<Integer> classIDs;
 
     Thread resultsThread = new Thread(new Runnable() {
@@ -125,13 +126,14 @@ public class SectionsScreen extends MenuToolbar {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
+                selectedClassID = position;
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             JSONObject json = new JSONObject();
                             String post = json.toString();
-                            URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/" + courseID);
+                            URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/" + classIDs.get(selectedClassID));
                             HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
                             connection.setRequestMethod("POST");
                             connection.setDoOutput(true);
@@ -253,7 +255,7 @@ public class SectionsScreen extends MenuToolbar {
                 try {
                     JSONObject json = new JSONObject().put("", "");
                     String post = json.toString();
-                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/"+ courseID);
+                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/"+ classIDs);
                     HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setDoOutput(true);
