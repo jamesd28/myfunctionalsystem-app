@@ -94,7 +94,7 @@ public class SemesterScreen extends MenuToolbar {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 String term = termNames.get(position);
-                launchCart(viewClicked, term);
+                launchCart(term);
             }
         });
     }
@@ -106,13 +106,7 @@ public class SemesterScreen extends MenuToolbar {
         list.setAdapter(adapter);
     }
 
-    public void launchDepartments() {
-        Intent intent = new Intent(this, DepartmentScreen.class);
-        startActivity(intent);
-    }
-
-    public void launchCart(View view, String term){
-
+    public void launchCart(String term){
         Intent intent = new Intent(this, CartScreen.class);
         intent.putExtra("term", term.split(" ")[0]);
         intent.putExtra("termId", termIds.get(termNames.indexOf(term)));

@@ -27,12 +27,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PlannerScreen extends MenuToolbar {
-
-    private final String[] plannedCourses = {"CMPT  491", "PHYS  124", "CMPT  315", "ECON  101", "CMPT  360", "CMPT  464",
-            "PHIL  125", "MATH  200", "ECON  102", "CMPT  399", "CHEM  263", "CHEM  291", "POLS  101", "CMPT  101" };
     private ArrayList<String> coursesInPlanner = new ArrayList<>();
     private HashMap<String, View[]> tableRowContents;
     private List<TableRow> tableRows;
+    private List<Integer> classIDs;
+    private HashMap<String, String> descriptions;
 
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
@@ -50,9 +49,8 @@ public class PlannerScreen extends MenuToolbar {
                     for(int i = 0; i < jsonQueryResult.length(); i++){
                         String courseCode = jsonQueryResult.getJSONObject(i).get("code").toString();
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
-                        String courseDesc = jsonQueryResult.getJSONObject(i).get("description").toString();
-                        Integer classID = (Integer) jsonQueryResult.getJSONObject(i).get("id");
                         coursesInPlanner.add(courseCode + "  " + courseNo);
+                        classIDs.add((Integer) jsonQueryResult.getJSONObject(i).get("CourseId"));
                         Log.d("Planner ", courseCode + " " + courseNo);
                     }
                 }
@@ -69,7 +67,7 @@ public class PlannerScreen extends MenuToolbar {
         setContentView(R.layout.activity_planner_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        coursesInPlanner = new ArrayList<String>(Arrays.asList(plannedCourses));
+        classIDs = new ArrayList<>();
         tableRowContents = new HashMap<>();
         resultsThread.start();
         /* Waits until Thread is Done */
@@ -155,7 +153,7 @@ public class PlannerScreen extends MenuToolbar {
                                 try {
                                     JSONObject json = new JSONObject();
                                     String post = json.toString();
-                                    URL myFunctionalServer = new URL("http://159.203.29.177/planner/delete/");
+                                    URL myFunctionalServer = new URL("http://159.203.29.177/planner/delete/"+classIDs.get(coursesInPlanner.indexOf(course)));
                                     HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
                                     connection.setRequestMethod("POST");
                                     connection.setDoOutput(true);
@@ -172,12 +170,18 @@ public class PlannerScreen extends MenuToolbar {
                                 }
                             }
                         });
+                        
+			thread.start();
+			/* Waits until Thread is Done */
+                        while(thread.isAlive()) {};
+
                         coursesInPlanner.remove(course);
                         removeTableRows();
                         addTableRows();
                         dialog.cancel();
                     }
                 });
+
         builder1.setNegativeButton("No",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

@@ -2,6 +2,7 @@ package cmpt305.myfunctionalsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,7 +21,6 @@ public class DescriptionScreen extends MenuToolbar {
             "course name goes here",
             "Description\nA very insightful description of the course goes here",
     };
-    //CourseScreen course;
     private int courseID;
 
 
@@ -101,13 +101,15 @@ public class DescriptionScreen extends MenuToolbar {
                     reqStream.writeBytes(post);
                     reqStream.flush();
 
+                    Toast.makeText(getApplicationContext(), courseInfo[0] + " has been added to your planner", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-       Toast.makeText(getApplicationContext(), courseInfo[0] + " has been added to your planner",
-                Toast.LENGTH_LONG).show();
+        thread.start();
+        /* Waits until Thread is Done */
+        while(thread.isAlive()) {};
     }
 }

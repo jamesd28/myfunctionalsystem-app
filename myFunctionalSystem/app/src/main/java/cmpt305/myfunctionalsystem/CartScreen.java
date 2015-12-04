@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,27 +22,21 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class CartScreen extends MenuToolbar {
-
-    private final String[] fallCourses1 = {"CMPT  361", "CMPT  305", "CMPT  310", "ECON  101", "CMPT  101"};
-    private final String[] winterCourses1 = {"CMPT  399", "CMPT  491", "CMPT  315", "PHYS  124", "ECON  102"};
-    private final String[] springSummerCourses1 = {"PHIL 125",  "POLS  101"};
-
-    private List<String> fallCourses;
-    private List<String> winterCourses;
-    private List<String> springSummerCourses;
-    private List<String> currentlyViewedTerm;
+    private List<String> currentlyViewedTerm = new ArrayList<>();
     private String term;
+    private Integer termId;
 
     private HashMap<String, List<String>> terms;
 
     private HashMap<String, View[]> tableRowContents;
     private List<TableRow> tableRows;
+    private List<Integer> classIds = new ArrayList<>();
+    private List<String> courseNames = new ArrayList<>();
 
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
@@ -59,6 +55,8 @@ public class CartScreen extends MenuToolbar {
                         String courseCode = jsonQueryResult.getJSONObject(i).get("code").toString();
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
                         currentlyViewedTerm.add(courseCode + "  " + courseNo);
+                        classIds.add((Integer) jsonQueryResult.getJSONObject(i).get("ClassId"));
+                        courseNames.add(courseCode);
                     }
                     System.out.println(currentlyViewedTerm);
                 }
@@ -77,23 +75,19 @@ public class CartScreen extends MenuToolbar {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tableRowContents = new HashMap<>();
+        currentlyViewedTerm = new ArrayList<>();
+        tableRowContents = new HashMap<>();//
         tableRows = new ArrayList<>();
         terms = new HashMap<>();
-        fallCourses = new ArrayList<String>(Arrays.asList(fallCourses1));
-        winterCourses = new ArrayList<String>(Arrays.asList(winterCourses1));
-        springSummerCourses = new ArrayList<String>(Arrays.asList(springSummerCourses1));
-        terms.put("Fall", fallCourses);
-        terms.put("Winter", winterCourses);
-        terms.put("Spring/Summer", springSummerCourses);
 
+        term = getIntent().getStringExtra("term");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            term = extras.getString("term");
+            termId = extras.getInt("termId");
         }
-        currentlyViewedTerm = new ArrayList<>(terms.get(term));
 
         resultsThread.start();
+
         /* Waits until Thread is Done */
         while(resultsThread.isAlive()) {};
         addTableRows();
@@ -190,7 +184,7 @@ public class CartScreen extends MenuToolbar {
                                 try {
                                     JSONObject json = new JSONObject().put("", "");
                                     String post = json.toString();
-                                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/delete/"+ "");
+                                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/delete/"+ classIds.get(currentlyViewedTerm.indexOf(course)));
                                     HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
                                     connection.setRequestMethod("POST");
                                     connection.setDoOutput(true);
@@ -207,6 +201,11 @@ public class CartScreen extends MenuToolbar {
                                 }
                             }
                         });
+
+                        thread.start();
+			/* Waits until Thread is Done */
+                        while(thread.isAlive()) {};
+
                         currentlyViewedTerm.remove(course);
                         removeTableRows();
                         addTableRows();
@@ -272,10 +271,12 @@ public class CartScreen extends MenuToolbar {
         tl.removeAllViews();
     }
 
-    public String getCourseName(View button){
+    public String getCourseName(Button button){
         for (String key : tableRowContents.keySet()){
-            if (tableRowContents.get(key)[0].equals(button) ||
-                    tableRowContents.get(key)[1].equals(button)){
+            //Log.d("this", key);
+            if (tableRowContents.get(key)[0].equals(button) /*||
+                    tableRowContents.get(key)[1].equals(button)*/){
+                Log.d("this", key);
                 return key;
             }
         }

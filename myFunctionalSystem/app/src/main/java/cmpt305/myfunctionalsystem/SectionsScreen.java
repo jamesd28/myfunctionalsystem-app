@@ -14,6 +14,13 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
+import java.util.List;
+
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -25,10 +32,12 @@ import java.util.Scanner;
 
 public class SectionsScreen extends MenuToolbar {
 
-    private ArrayList<String> classSections;
+    private ArrayList<String> classSections, sections;
     private ArrayList<HashMap<String, String>> sectionObjects;
     private int courseID;
     private String courseName;
+
+    private ArrayList<Integer> classIDs;
 
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
@@ -43,6 +52,7 @@ public class SectionsScreen extends MenuToolbar {
                 Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
                 while (httpResponseScanner.hasNextLine()) {
                     JSONArray jsonQueryResult = new JSONArray(httpResponseScanner.nextLine());
+
                     for(int i = 0; i < jsonQueryResult.length(); i++) {
                         String day = jsonQueryResult.getJSONObject(i).get("meetDates").toString();
 
@@ -55,6 +65,10 @@ public class SectionsScreen extends MenuToolbar {
                         Log.d("ClassSections", section + "  " + day + "  " + timeString);
                         classSections.add(section + "\t\t" + day + "\n" + timeString);
 
+                        Integer classId = (Integer) jsonQueryResult.getJSONObject(i).get("id");
+                        classIDs.add(classId);
+                        //profs.add(jsonQueryResult.getJSONObject(i).get("instructor").toString());
+
                         /* Adds for Calendar to use */
                         HashMap<String, String> courseObject = new HashMap<>();
 
@@ -66,6 +80,8 @@ public class SectionsScreen extends MenuToolbar {
 
                         sectionObjects.add(courseObject);
                         /* End Calendar */
+
+                        System.out.println(sectionObjects);
                     }
                 }
 
@@ -85,6 +101,7 @@ public class SectionsScreen extends MenuToolbar {
 
         classSections = new ArrayList<>();
         sectionObjects = new ArrayList<>();
+        classIDs = new ArrayList<>();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -113,7 +130,35 @@ public class SectionsScreen extends MenuToolbar {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject json = new JSONObject();
+                                String post = json.toString();
+                                URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/" + courseID);
+                                HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
+                                connection.setRequestMethod("POST");
+                                connection.setDoOutput(true);
+                                connection.setFixedLengthStreamingMode(post.getBytes().length);
+                                connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                                connection.connect();
 
+                                DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
+                                reqStream.writeBytes(post);
+                                reqStream.flush();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    thread.start();
+                    /* Waits until Thread is Done */
+                    while (thread.isAlive()) {}
+
+                    Toast.makeText(getApplicationContext(), classSections.get(position).split("\t")[0] + " has been added to your shopping cart", Toast.LENGTH_LONG).show();
 
                 /* Begin -- Calendar */
                 String section = sectionObjects.get(position).get("section");
@@ -124,10 +169,12 @@ public class SectionsScreen extends MenuToolbar {
                 int year = 2015;
                 int month = 9;
                 int day = 1;
-                while(!days.contains(convertDatetoDay(day, month, year))) { day++; }
+                while (!days.contains(convertDatetoDay(day, month, year))) {
+                    day++;
+                }
 
                 /* Calendars for start/end times */
-                GregorianCalendar startCal =  new GregorianCalendar(year, month - 1, day,
+                GregorianCalendar startCal = new GregorianCalendar(year, month - 1, day,
                         Integer.valueOf(sectionObjects.get(position).get("startTime").split(":")[0]),
                         Integer.valueOf(sectionObjects.get(position).get("startTime").split(":")[1]));
 
@@ -143,9 +190,9 @@ public class SectionsScreen extends MenuToolbar {
                 addToCalendar(courseName, section, location, days, startCal, endCal, untilDate);
                 /* End -- Calendar */
             }
-
         });
     }
+
 
     /* Source http://stason.org/TULARC/society/calendars/2-5-What-day-of-the-week-was-2-August-1953.html#.Vl6CO9-rS3U */
     public String convertDatetoDay(int day, int month, int year) {
@@ -215,11 +262,11 @@ public class SectionsScreen extends MenuToolbar {
                     connection.setFixedLengthStreamingMode(post.getBytes().length);
                     connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
                     connection.connect();
-		    
+
                     DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
                     reqStream.writeBytes(post);
                     reqStream.flush();
-		    
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -227,4 +274,3 @@ public class SectionsScreen extends MenuToolbar {
 	    });
     }
 }
-

@@ -11,8 +11,19 @@ import android.widget.EditText;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
+
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.CookieStore;
+import java.net.HttpCookie;
+import java.util.ArrayList;
+import java.util.List;
+
 import java.net.URL;
 import java.net.HttpURLConnection;
+import java.net.CookieManager;
+import java.net.CookieHandler;
+import java.util.Map;
 
 public class LoginScreen extends MenuToolbar {
     private final String TAG = "myFunctional System";
@@ -21,6 +32,10 @@ public class LoginScreen extends MenuToolbar {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
+
+    static final String COOKIES_HEADER = "Set-Cookie";
+    Map<String, List<String>> headerFields;
+    List<String> cookiesHeader;
 
     public static boolean validated = false;
 
@@ -44,6 +59,8 @@ public class LoginScreen extends MenuToolbar {
         Log.d(TAG, "onCreate() called");
 
         findViewById(R.id.unameText).requestFocus();
+
+        CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
     }
 
     private void makeThread() {
@@ -56,6 +73,18 @@ public class LoginScreen extends MenuToolbar {
                     Log.d(TAG, post);
                     URL myFunctionalServer = new URL("http://159.203.29.177/auth/login/");
                     HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
+
+//                    CookieManager cookieManager = new CookieManager();
+//                    headerFields = connection.getHeaderFields();
+//                    cookiesHeader = headerFields.get(COOKIES_HEADER);
+//                    if(cookiesHeader != null)
+//                    {
+//                        for (String cookie : cookiesHeader)
+//                        {
+//                            cookieManager.getCookieStore().add(null, HttpCookie.parse(cookie).get(0));
+//                        }
+//                    }
+
                     connection.setRequestMethod("POST");
                     connection.setDoOutput(true);
                     connection.setFixedLengthStreamingMode(post.getBytes().length);
