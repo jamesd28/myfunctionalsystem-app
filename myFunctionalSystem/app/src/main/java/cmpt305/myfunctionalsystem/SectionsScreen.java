@@ -14,12 +14,7 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
-import java.util.List;
 
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
@@ -130,42 +125,44 @@ public class SectionsScreen extends MenuToolbar {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                JSONObject json = new JSONObject();
-                                String post = json.toString();
-                                URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/" + courseID);
-                                HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
-                                connection.setRequestMethod("POST");
-                                connection.setDoOutput(true);
-                                connection.setFixedLengthStreamingMode(post.getBytes().length);
-                                connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
-                                connection.connect();
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            JSONObject json = new JSONObject();
+                            String post = json.toString();
+                            URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/" + courseID);
+                            HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
+                            connection.setRequestMethod("POST");
+                            connection.setDoOutput(true);
+                            connection.setFixedLengthStreamingMode(post.getBytes().length);
+                            connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                            connection.connect();
 
-                                DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
-                                reqStream.writeBytes(post);
-                                reqStream.flush();
+                            DataOutputStream reqStream = new DataOutputStream(connection.getOutputStream());
+                            reqStream.writeBytes(post);
+                            reqStream.flush();
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    });
+                    }
+                });
 
-                    thread.start();
+                thread.start();
+
                     /* Waits until Thread is Done */
-                    while (thread.isAlive()) {}
+                while (thread.isAlive()) {
+                }
 
-                    Toast.makeText(getApplicationContext(), classSections.get(position).split("\t")[0] + " has been added to your shopping cart", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), classSections.get(position).split("\t")[0] + " has been added to your shopping cart", Toast.LENGTH_LONG).show();
 
-                /* Begin -- Calendar */
+                    /* Begin -- Calendar */
                 String section = sectionObjects.get(position).get("section");
                 String location = "CCC - Bldg 5 - 232";
                 String days = getDays(sectionObjects.get(position).get("days"));
 
-                /* Gets starting date to put first calendar event on */
+                    /* Gets starting date to put first calendar event on */
                 int year = 2015;
                 int month = 9;
                 int day = 1;
@@ -173,7 +170,7 @@ public class SectionsScreen extends MenuToolbar {
                     day++;
                 }
 
-                /* Calendars for start/end times */
+                    /* Calendars for start/end times */
                 GregorianCalendar startCal = new GregorianCalendar(year, month - 1, day,
                         Integer.valueOf(sectionObjects.get(position).get("startTime").split(":")[0]),
                         Integer.valueOf(sectionObjects.get(position).get("startTime").split(":")[1]));
@@ -182,15 +179,16 @@ public class SectionsScreen extends MenuToolbar {
                         Integer.valueOf(sectionObjects.get(position).get("endTime").split(":")[0]),
                         Integer.valueOf(sectionObjects.get(position).get("endTime").split(":")[1]));
 
-                /* Convoluted String / Specifies where to end recurrence (YYYYMMDD????????)
-                                                Best Leave the question marks as: T000000Z */
+                    /* Convoluted String / Specifies where to end recurrence (YYYYMMDD????????)
+                                                    Best Leave the question marks as: T000000Z */
                 String untilDate = "20151202T000000Z";
 
-                /* Add to Calendar */
+                    /* Add to Calendar */
                 addToCalendar(courseName, section, location, days, startCal, endCal, untilDate);
-                /* End -- Calendar */
+                    /* End -- Calendar */
             }
         });
+
     }
 
 
@@ -255,7 +253,7 @@ public class SectionsScreen extends MenuToolbar {
                 try {
                     JSONObject json = new JSONObject().put("", "");
                     String post = json.toString();
-                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/add"+ courseID);
+                    URL myFunctionalServer = new URL("http://159.203.29.177/cart/add/"+ courseID);
                     HttpURLConnection connection = (HttpURLConnection) myFunctionalServer.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setDoOutput(true);

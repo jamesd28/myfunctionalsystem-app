@@ -41,7 +41,7 @@ public class CartScreen extends MenuToolbar {
     Thread resultsThread = new Thread(new Runnable() {
         public void run() {
             try {
-                URL serverUrl = new URL("http://159.203.29.177/cart/1");
+                URL serverUrl = new URL("http://159.203.29.177/cart/" + termId);
                 HttpURLConnection urlConnection = (HttpURLConnection) serverUrl.openConnection();
 
                 // Indicate that we want to write to the HTTP request body
@@ -54,11 +54,15 @@ public class CartScreen extends MenuToolbar {
                     for(int i = 0; i < jsonQueryResult.length(); i++){
                         String courseCode = jsonQueryResult.getJSONObject(i).get("code").toString();
                         String courseNo = jsonQueryResult.getJSONObject(i).get("number").toString();
-                        currentlyViewedTerm.add(courseCode + "  " + courseNo);
+                        String sectionNo = jsonQueryResult.getJSONObject(i).get("sectionNumber").toString();
+
+                        currentlyViewedTerm.add(courseCode + "  " + courseNo + " " + sectionNo);
                         classIds.add((Integer) jsonQueryResult.getJSONObject(i).get("ClassId"));
                         courseNames.add(courseCode);
+                        System.out.println("CURRENTLY VIEWED TERM: " + jsonQueryResult.getJSONObject(i));
+                        System.out.println("COURSE VIEWED TERM: " + currentlyViewedTerm);
+
                     }
-                    System.out.println(currentlyViewedTerm);
                 }
                 httpResponseScanner.close();
             } catch (Exception e) {
